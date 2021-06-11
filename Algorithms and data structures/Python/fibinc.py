@@ -1,5 +1,6 @@
 from read_to_space import read_to_space
 
+
 def fibinc():
     n = int(read_to_space())
     result = []
