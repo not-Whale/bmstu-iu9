@@ -1,5 +1,6 @@
-# Python cache files
+# Python files
 __pycache__
+venv
 
 # Idea files
 .idea/
