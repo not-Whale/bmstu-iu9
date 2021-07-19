@@ -1,0 +1,77 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    int *B = (int*)malloc(4*sizeof(int));
+    int cap = 4;
+    int top1 = 0;
+    int top2 = 3;
+    int n;
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++)
+    {
+        char Opp[6];
+        scanf("%s", &Opp);
+        if ((Opp[0] == 69) && (Opp[1] == 77)) // E.M.PTY
+        {
+            if ((top1 == 0) && (top2 == cap-1))
+            {
+                printf("true\n");
+            }
+            else
+            {
+                printf("false\n");
+            }
+        }
+        else if ((Opp[0] == 69) && (Opp[1] == 78)) // E.N.Q
+        {
+            int x;
+            scanf("%d", &x);
+            if (top2 < top1)
+            {
+                int c = cap;
+                cap *= 2;
+                int *A = (int*)malloc(cap*sizeof(int));
+                for (int h = 0; h < top1; h++)
+                {
+                    A[h] = B[h];
+                }
+                for (int g = c-1; g > top2; g--)
+                {
+                    A[c+g] = B[g];
+                }
+
+                B = (int*)realloc(B, cap*sizeof(int));
+                for (int h = 0; h < top1; h++)
+                {
+                    B[h] = A[h];
+                }
+                for (int g = cap-1; g > top2; g--)
+                {
+                    B[g] = A[g];
+                }
+                top2 += c;
+                free(A);
+            }
+            B[top1] = x;
+            top1++;
+        }
+        else if (Opp[0] == 68) // D.EQ
+        {
+            if (top2 == cap-1)
+            {
+                while (top1 != 0)
+                {
+                    top1--;
+                    B[top2] = B[top1];
+                    top2--;
+                }
+            }
+            top2++;
+            printf("%d\n", B[top2]);
+        }
+    }
+    free(B);
+    return 0;
+}
