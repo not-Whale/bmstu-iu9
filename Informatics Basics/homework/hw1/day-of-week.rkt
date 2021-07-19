@@ -1,0 +1,25 @@
+(define (day-of-week x y z)
+  (+ (remainder (+ x
+                   (cond ((or (= y 1) (= y 10)) 1)
+                         ((= y 5) 2)
+                         ((= y 8) 3)
+                         ((or (= y 2) (= y 3) (= y 11)) 4)
+                         ((= y 6) 5)
+                         ((or (= y 12) (= y 9)) 6)
+                         ((or (= y 4) (= y 7)) 0))
+                   (remainder
+                    (+ (cond
+                         ((= (remainder (quotient z 100) 4) 0) 6)
+                         ((= (remainder (quotient z 100) 4) 1) 4)
+                         ((= (remainder (quotient z 100) 4) 2) 2)
+                         (else 0))
+                       (remainder z 100)
+                       (quotient (remainder z 100) 4))
+                    7)
+                   (- 1))
+                7)))
+
+(day-of-week 04 12 1975)
+(day-of-week 04 12 2006)
+(day-of-week 29 05 2013)
+(day-of-week 27 09 2019)

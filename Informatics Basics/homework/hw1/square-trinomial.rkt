@@ -1,0 +1,13 @@
+(define (quadratic a b c)
+  (cond ((> (- (* b b) (* 4 a c)) 0)
+         (cons (/ (+ (- b) (sqrt(- (* b b) (* 4 a c)))) (* 2 a))
+              (/ (- (- b) (sqrt(- (* b b) (* 4 a c)))) (* 2 a))))
+        ((= (sqrt(- (* b b) (* 4 a c))) 0)
+         (cons (/ (- b) (* 2 a)) '()))
+        (else (list))))
+
+(quadratic 1 0 0)
+(quadratic 1 0 -4)
+(quadratic 1 0 4)
+(quadratic 1 6 5)
+(quadratic 1 -2 1)
