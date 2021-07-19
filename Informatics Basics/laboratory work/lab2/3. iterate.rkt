@@ -1,0 +1,10 @@
+(define (iterate f x n)
+  (define (iter count y)
+    (if (> count n)
+        '()
+        (cons y (iter (+ count 1) (f y)))))
+  (iter 1 x))
+
+(iterate (lambda (x) (* 2 x)) 1 6) 
+(iterate (lambda (x) (* 2 x)) 1 1)
+(iterate (lambda (x) (* 2 x)) 1 0) 

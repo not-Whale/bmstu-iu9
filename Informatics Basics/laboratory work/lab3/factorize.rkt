@@ -1,0 +1,53 @@
+(define (factorize expr)
+  (if (2-? expr)
+      (2- expr)
+      (if (3-? expr)
+          (3- expr)
+          (if (3+? expr)
+              (3+ expr)
+              (display "error")))))
+
+(define (2-? expr)
+  (and (list? expr)
+       (equal? '- (list-ref expr 0))
+       (list? (list-ref expr 1))
+       (list? (list-ref expr 2))
+       (equal? 'expt (list-ref (list-ref expr 1) 0))
+       (equal? '2 (list-ref (list-ref expr 1) 2))))
+  
+(define (2- expr)
+  (let ((a (car (cdr (car (cdr expr)))))
+        (b (car (cdr (car (cdr (cdr expr)))))))
+    `(* (- ,a ,b)
+        (+ ,a ,b))))
+
+
+(define (3-? expr)
+  (and (list? expr)
+       (equal? '- (list-ref expr 0))
+       (list? (list-ref expr 1))
+       (list? (list-ref expr 2))
+       (equal? 'expt (list-ref (list-ref expr 1) 0))
+       (equal? '3 (list-ref (list-ref expr 1) 2))))
+  
+(define (3- expr)
+  (let ((a (car (cdr (car (cdr expr)))))
+        (b (car (cdr (car (cdr (cdr expr)))))))
+    `(* (- ,a ,b)
+        (+ (* ,a ,a) (* ,a ,b) (* ,b ,b)))))
+
+
+(define (3+? expr)
+  (and (list? expr)
+       (equal? '+ (list-ref expr 0))
+       (list? (list-ref expr 1))
+       (list? (list-ref expr 2))
+       (equal? 'expt (list-ref (list-ref expr 1) 0))
+       (equal? '3 (list-ref (list-ref expr 1) 2))))
+  
+(define (3+ expr)
+  (let ((a (car (cdr (car (cdr expr)))))
+        (b (car (cdr (car (cdr (cdr expr)))))))
+    `(* (+ ,a ,b)
+        (+ (- (* ,a ,a) (* ,a ,b)) (* ,b ,b)))))
+
