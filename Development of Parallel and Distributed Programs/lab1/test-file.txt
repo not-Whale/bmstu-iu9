@@ -4,4 +4,4 @@ first line
 second line
 one two
 
-i am trying to do something interesting
+I am trying to do something interesting
