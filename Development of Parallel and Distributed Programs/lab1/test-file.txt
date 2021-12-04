@@ -1,7 +1,2 @@
 does it work?
-really?
-first line
-second line
-one two
-
-I am trying to do something interesting
+yes, it works!
