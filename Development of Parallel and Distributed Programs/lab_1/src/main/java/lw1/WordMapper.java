@@ -10,7 +10,7 @@ import java.io.IOException;
 public class WordMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-        // получаем строку из 
+        // получаем строку из value 
         String inputString = value.toString();
 
         //
