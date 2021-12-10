@@ -5,7 +5,9 @@ public class WordMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
         // слово пишем в контекст с счетчиком 1
         // в контекст пишется пара — Text и IntWritable >
 
+        // получаем строку из value
         String inputString = value.toString();
-        
+
+
     }
 }
