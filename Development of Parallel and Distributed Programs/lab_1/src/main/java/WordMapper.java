@@ -18,10 +18,6 @@ public class WordMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
         inputString = inputString.replaceAll("[—\\s]", " ");
         inputString = inputString.replaceAll("[-\\s]", " ");
 
-        // потом отдельно точки (для случая разделения цифр, например: "40.000"
-        // или для сокращений - "Н. Э. Баумана")
-        // inputString = inputString.replaceAll(".", "");
-
         // далее все специальные символы, кроме ' для французский слов
         // и "картавости", а также дефисов внутри слов (например, "красно-синий")
         inputString = inputString.replaceAll("[\\W&&[^-'а-я]]", " ");
