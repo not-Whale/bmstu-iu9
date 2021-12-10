@@ -6,6 +6,6 @@ public class FlightsStatsApp {
         job.setJarByClass(FlightsStatsApp.class);
         job.setJobName("Reduce side join App");
 
-        
+        MultipleInputs.addInputPath(job, new Path(args[0]), )
     }
 }
