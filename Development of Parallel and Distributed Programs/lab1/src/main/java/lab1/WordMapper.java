@@ -17,7 +17,12 @@ public class WordMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
         // получаем строку из value
         String inputString = value.toString();
 
-        // придется заново все писать
+        // разбиваем строку на слова
+        String[] words = inputString.split(" ");
 
+        // записываем в контекст каждое слово с счетчиком 1
+        for (String word : words) {
+            context.write(new Text(word), new IntWritable(1));
+        }
     }
 }
