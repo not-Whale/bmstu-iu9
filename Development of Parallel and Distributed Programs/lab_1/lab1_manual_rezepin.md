@@ -89,10 +89,10 @@ export JAVA_HOME=~/jdk1.8.0_261
 ## 4.1 etc/hadoop/core-site.xml
 ```
 <configuration> 
-     <property> 
-         <name>fs.default.name</name> 
-         <value>hdfs://localhost:9000</value> 
-     </property> 
+	<property> 
+		<name>fs.default.name</name> 
+		<value>hdfs://localhost:9000</value> 
+	</property> 
 </configuration>
 ```
 
@@ -101,24 +101,24 @@ export JAVA_HOME=~/jdk1.8.0_261
 ```
 <configuration> 
      	<property> 
-         		<name>yarn.nodemanager.aux-services</name> 
-         		<value>mapreduce_shuffle</value> 
+		<name>yarn.nodemanager.aux-services</name> 
+		<value>mapreduce_shuffle</value> 
      	</property> 
      	<property> 
-         		<name>yarn.nodemanager.aux-services.mapreduce.shuffle.class</name> 
-         		<value>org.apache.hadoop.mapred.ShuffleHandler</value> 
+		<name>yarn.nodemanager.aux-services.mapreduce.shuffle.class</name> 
+		<value>org.apache.hadoop.mapred.ShuffleHandler</value> 
      	</property> 
      	<property>
-    	   <name>yarn.nodemanager.disk-health-checker.enable</name>
-         		<value>false</value>
+		<name>yarn.nodemanager.disk-health-checker.enable</name>
+		<value>false</value>
      	</property> 
 	<property>
-	    <name>yarn.nodemanager.pmem-check-enabled</name>
-	    <value>false</value>
+		<name>yarn.nodemanager.pmem-check-enabled</name>
+		<value>false</value>
 	</property>
 	<property>
-	    <name>yarn.nodemanager.vmem-check-enabled</name>
-	    <value>false</value>
+		<name>yarn.nodemanager.vmem-check-enabled</name>
+		<value>false</value>
 	</property> 
 </configuration>
 ```
@@ -126,28 +126,28 @@ export JAVA_HOME=~/jdk1.8.0_261
 ## 4.3 etc/hadoop/mapred-site.xml
 ```
 <configuration> 
-     <property> 
-         <name>mapreduce.framework.name</name> 
-         <value>yarn</value> 
-     </property> 
+	<property> 
+		<name>mapreduce.framework.name</name> 
+		<value>yarn</value> 
+	</property> 
 </configuration>
 ```
 
 ## 4.4 etc/hadoop/hdfs-site.xml
 ```
 <configuration> 
-     <property> 
-         <name>dfs.replication</name> 
-         <value>1</value> 
-     </property> 
-     <property> 
-         <name>dfs.namenode.name.dir</name> 
-         <value>file:/home/<user>/hdata/namenode</value> 
-     </property> 
-     <property> 
-         <name>dfs.datanode.data.dir</name> 
-         <value>file:/home/<user>/hdata/datanode</value> 
-     </property> 
+	<property> 
+		<name>dfs.replication</name> 
+		<value>1</value> 
+	</property> 
+	<property> 
+		<name>dfs.namenode.name.dir</name> 
+		<value>file:/home/<user>/hdata/namenode</value> 
+	</property> 
+	<property> 
+		<name>dfs.datanode.data.dir</name> 
+		<value>file:/home/<user>/hdata/datanode</value> 
+	</property> 
 </configuration>
 ```
 Тут <user> заменяем на имя пользователя операционной системы.
@@ -230,7 +230,7 @@ public class WordCountApp {
 public class WordMapper extends Mapper<LongWritable, Text, Text, IntWritable> { 
     @Override 
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException { 
-        // <получаем строку из value, удаляем все спецсимволы, переводим в lowercase, 
+	// <получаем строку из value, удаляем все спецсимволы, переводим в lowercase, 
         // разбиваем на слова и каждое слово пишем в контекст с счетчиком 1 в контекст пишется пара — Text и IntWritable >
     } 
 }
