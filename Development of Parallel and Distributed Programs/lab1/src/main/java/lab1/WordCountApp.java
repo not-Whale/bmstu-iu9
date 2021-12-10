@@ -1,6 +1,6 @@
 package lab1;
 
-import org.apache.
+import org.apache.hadoop.*
 
 public class WordCountApp {
     public static void main(String[] args) throws Exception {
