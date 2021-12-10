@@ -1,8 +1,8 @@
 package lab1;
 
+import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
-import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
 import java.io.IOException;
@@ -14,7 +14,6 @@ public class WordReducer extends Reducer<Text, IntWritable, Text, LongWritable> 
         // генерируем запись в контекст
        // В контекст пишется пара — Text и LongWritable>
 
-        // тут тоже заново((
         // считаем количество записей в итераторе
         long count = 0;
         for (IntWritable value : values) {
