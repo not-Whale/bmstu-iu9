@@ -1,6 +1,7 @@
 package lab1;
 
 import org.apache.hadoop.mapred.FileInputFormat;
+import org.apache.hadoop.mapred.FileOutputFormat;
 import org.apache.hadoop.mapreduce.Job;
 
 public class WordCountApp {
