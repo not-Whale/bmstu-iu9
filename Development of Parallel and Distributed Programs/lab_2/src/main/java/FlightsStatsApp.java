@@ -4,6 +4,6 @@ public class FlightsStatsApp {
 
         Job job = Job.getInstance();
         job.setJarByClass(FlightsStatsApp.class);
-        job.setJobName("")
+        job.setJobName("Reduce side join app")
     }
 }
