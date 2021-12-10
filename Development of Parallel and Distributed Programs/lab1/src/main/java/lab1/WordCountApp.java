@@ -1,5 +1,7 @@
 public class WordCountApp {
     public static void main(String[] args) throws Exception {
+        // проверка на правильность ввода
+        // формат: WordCountApp <путь ввода> <путь вывода>
         if (args.length != 2) {
             System.err.println("Usage: WordCountApp <input path> <output path>");
             System.exit(-1);
@@ -7,6 +9,7 @@ public class WordCountApp {
         Job job = Job.getInstance();
         job.setJarByClass(WordCountApp.class);
         job.setJobName("Word count");
+        // задание файлов на ввод и вывод
         FileInputFormat.addInputPath(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
         job.setMapperClass(WordMapper.class);
