@@ -20,7 +20,7 @@ public class WordMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
         inputString = inputString.replaceAll("[-\\s]", " ");
         inputString = inputString.replaceAll(".", "");
         inputString = inputString.replaceAll("[\\W&&[^-']]", " ");
-        inputString = inputString.replaceAll("[ \\+]", " ");
+        inputString = inputString.replaceAll("[ +]", " ");
 
         String[] words = inputString.split("\\s");
 
