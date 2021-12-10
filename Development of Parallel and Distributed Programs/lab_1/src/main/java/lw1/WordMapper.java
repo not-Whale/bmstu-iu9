@@ -6,6 +6,7 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.mapreduce.Mapper;
 
 import java.io.IOException;
+import java.util.Locale;
 
 public class WordMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
     @Override
@@ -13,6 +14,8 @@ public class WordMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
         // получаем строку из value
         String inputString = value.toString();
 
+        // перевод в нижний регистр 
+        inputString = inputString.toLowerCase();
         // удаляем все спецсимволы
         // сначала для прямой речи
         inputString = inputString.replaceAll("[—\\s]", " ");
