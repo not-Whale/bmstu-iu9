@@ -14,7 +14,7 @@ public class WordMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
         // получаем строку из value
         String inputString = value.toString();
 
-        // перевод в нижний регистр 
+        // перевод в нижний регистр
         inputString = inputString.toLowerCase();
         // удаляем все спецсимволы
         // сначала для прямой речи
@@ -30,8 +30,10 @@ public class WordMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
         inputString = inputString.replaceAll("[ +]", " ");
         inputString = inputString.trim();
 
+        // разделение на слова, запись в массив
         String[] words = inputString.split("\\s");
 
+        //
         for (String word : words) {
             context.write(new Text(word), new IntWritable(1));
         }
