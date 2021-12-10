@@ -16,12 +16,13 @@ public class WordMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
 
         String inputString = value.toString();
 
-        inputString = inputString.replaceAll("[[—-]+\\s]", " ");
+        inputString = inputString.replaceAll("[—\\s]", " ");
+        inputString = inputString.replaceAll("[-\\s]", " ");
         inputString = inputString.replaceAll(".", "");
-        inputString = inputString.replaceAll("[\\W&&[-']]", " ");
+        inputString = inputString.replaceAll("[\\W&&[^-']]", " ");
         inputString = inputString.replaceAll("[ +]", " ");
 
-        String[] words = inputString.split(" ");
+        String[] words = inputString.split("\\s");
 
         for (String word : words) {
             context.write(new Text(word), new IntWritable(1));
