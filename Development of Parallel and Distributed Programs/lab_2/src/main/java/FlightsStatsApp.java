@@ -3,6 +3,7 @@ public class FlightsStatsApp {
         // проверка на правильность ввода
 
         Job job = Job.getInstance();
-        
+        job.setJarByClass(FlightsStatsApp.class);
+        job.setJobName("")
     }
 }
