@@ -21,12 +21,13 @@ public class WordMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
         // потом отдельно точки (для случая разделения цифр, например: "40.000"
         // или для сокращений - "Н. Э. Баумана")
         // inputString = inputString.replaceAll(".", "");
-        
+
         // далее все специальные символы, кроме ' для французский слов
         // и "картавости", а также дефисов внутри слов (например, "красно-синий")
-        inputString = inputString.replaceAll("[\\W&&[^-']]", "");
-        // "схлопываем" пробелы и удаляем их в начале и конце файла
-        inputString = inputString.replaceAll("[ +]", " ");
+        inputString = inputString.replaceAll("[\\W&&[^-'а-я]]", " ");
+        // "схлопываем" пробелы
+        inputString = inputString.replaceAll(" +", " ");
+        // и удаляем их в начале и конце файла
         inputString = inputString.trim();
 
         // разделение на слова, запись в массив
