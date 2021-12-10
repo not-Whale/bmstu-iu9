@@ -10,6 +10,6 @@ public class WordMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
         // получаем строку из value
         String inputString = value.toString();
 
-        // придется 
+        // придется заново все писать
     }
 }
