@@ -4,3 +4,14 @@ venv
 
 # Idea files
 .idea/
+
+# Idea files
+*.iml
+*.iws
+
+# Maven
+log/
+target/
+
+# Result files
+output*/
