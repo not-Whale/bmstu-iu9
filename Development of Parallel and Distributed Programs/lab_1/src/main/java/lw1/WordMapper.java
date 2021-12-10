@@ -10,10 +10,10 @@ import java.io.IOException;
 public class WordMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-        // переводим ввод к строчному типу
+        // получаем строку из 
         String inputString = value.toString();
 
-        // 
+        //
         inputString = inputString.replaceAll("[—\\s]", " ");
         inputString = inputString.replaceAll("[-\\s]", " ");
         inputString = inputString.replaceAll(".", "");
