@@ -1,7 +1,7 @@
 public class FlightsStatsApp {
     public static void main(Stringp[] args) throws Exception {
         // проверка на правильность ввода
-        // формат: FlightsStatsApp <путь к спи> <> <путь вывода>
+        // формат: FlightsStatsApp <путь к списку рейсов> <путь к списку> <путь вывода>
 
         Job job = Job.getInstance();
         job.setJarByClass(FlightsStatsApp.class);
