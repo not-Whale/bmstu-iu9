@@ -1,6 +1,6 @@
 package lab1;
 
-import 
+import org.
 
 public class WordCountApp {
     public static void main(String[] args) throws Exception {
