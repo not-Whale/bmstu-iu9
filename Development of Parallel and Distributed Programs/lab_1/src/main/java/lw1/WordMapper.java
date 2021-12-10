@@ -15,8 +15,8 @@ public class WordMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
 
         String inputString = value.toString();
 
-        inputString = inputString.replaceAll("")
-        inputString = inputString.replaceAll("[\-\\s]", " ");
+        inputString = inputString.replaceAll("[-\\s]", " ");
+        inputString = inputString.replaceAll()
         inputString = inputString.replaceAll("[\\W&&[-']]", " ");
         inputString = inputString.replaceAll("[ +]", " ");
     }
