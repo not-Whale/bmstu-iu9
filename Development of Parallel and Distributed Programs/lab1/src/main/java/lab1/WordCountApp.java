@@ -12,6 +12,7 @@ public class WordCountApp {
         // задание файлов на ввод и вывод
         FileInputFormat.addInputPath(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
+
         job.setMapperClass(WordMapper.class);
         job.setReducerClass(WordReducer.class);
         job.setOutputKeyClass(Text.class);
