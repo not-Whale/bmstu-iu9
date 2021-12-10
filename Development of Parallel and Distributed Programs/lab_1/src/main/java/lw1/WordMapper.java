@@ -33,7 +33,7 @@ public class WordMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
         // разделение на слова, запись в массив
         String[] words = inputString.split("\\s");
 
-        //
+        // запись слов в контекс с счетчиком 1
         for (String word : words) {
             context.write(new Text(word), new IntWritable(1));
         }
