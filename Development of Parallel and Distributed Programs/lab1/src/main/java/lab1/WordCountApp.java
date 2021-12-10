@@ -6,9 +6,11 @@ public class WordCountApp {
             System.err.println("Usage: WordCountApp <input path> <output path>");
             System.exit(-1);
         }
+
         Job job = Job.getInstance();
         job.setJarByClass(WordCountApp.class);
         job.setJobName("Word count");
+
         // задание файлов на ввод и вывод
         FileInputFormat.addInputPath(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
@@ -18,6 +20,7 @@ public class WordCountApp {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
         job.setNumReduceTasks(2);
+        
         System.exit(job.waitForCompletion(true) ? 0 : 1);
     }
 }
