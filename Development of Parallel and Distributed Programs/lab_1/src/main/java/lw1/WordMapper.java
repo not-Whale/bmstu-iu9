@@ -6,7 +6,6 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.mapreduce.Mapper;
 
 import java.io.IOException;
-import java.util.Locale;
 
 public class WordMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
     @Override
