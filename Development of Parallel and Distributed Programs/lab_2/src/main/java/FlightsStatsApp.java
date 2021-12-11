@@ -1,5 +1,6 @@
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.lib.input.MultipleInputs;
 
 public class FlightsStatsApp {
     public static void main(Stringp[] args) throws Exception {
