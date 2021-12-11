@@ -1,5 +1,6 @@
 import org.apache.hadoop.fs.Path;
 
+
 public class FlightsStatsApp {
     public static void main(Stringp[] args) throws Exception {
         // проверка на правильность ввода
