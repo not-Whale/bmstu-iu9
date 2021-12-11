@@ -14,6 +14,8 @@ public class AnFWritableComparable implements WritableComparable<AnFWritableComp
         this.indicator = indicator;
     }
 
+    public AnFWritableComparable() {}
+
     public int getDestAirport() {
         return this.destAirport;
     }
