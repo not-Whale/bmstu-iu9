@@ -27,7 +27,7 @@ public class AirportsReducer extends Reducer<AnFWritableComparable, Text, Text, 
 
         if (numberOfFlights != 0) {
             averageDelay = averageDelay / numberOfFlights;
-            context.write(new Text("DEST_AIRPORT_ID: " + destinationAirport.toString() + "    |    "), new Text("min: " + minDelay + ", max: " + maxDelay + ", average: " + averageDelay));
+            context.write(new Text("AIRPORT_DESCRIPTION: " + destinationAirport + "    |    "), new Text("min: " + minDelay + ", max: " + maxDelay + ", average: " + averageDelay));
         }
     }
 }
