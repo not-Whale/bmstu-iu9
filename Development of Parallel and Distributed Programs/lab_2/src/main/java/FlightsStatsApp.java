@@ -2,7 +2,9 @@ public class FlightsStatsApp {
     public static void main(Stringp[] args) throws Exception {
         // проверка на правильность ввода
         // формат: FlightsStatsApp <путь к списку рейсов> <путь к списку аэропортов> <путь вывода>
-        
+        if (args.length != 3) {
+            System.err.println("Usage: FlightsStatsApp <flights list path> <airports list path> <output path>")
+        }
 
         Job job = Job.getInstance();
         job.setJarByClass(FlightsStatsApp.class);
