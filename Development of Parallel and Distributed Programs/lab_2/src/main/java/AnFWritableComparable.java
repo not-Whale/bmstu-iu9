@@ -16,16 +16,23 @@ public class AnFWritableComparable implements WritableComparable<AnFWritableComp
 
     @Override
     public int compareTo(AnFWritableComparable o) {
-        int airport
+        int airportCodesIsEqual = Integer.compare(this.destAirport, o.destAirport);
+        int indicatorsIsEqual = Integer.compare(this.indicator, o.indicator);
+        if (airportCodesIsEqual == 0 && indicatorsIsEqual == 0) {
+            return 0;
+        }
+        return 1;
     }
 
     @Override
     public void write(DataOutput dataOutput) throws IOException {
-
+        dataOutput.writeInt(this.destAirport);
+        dataOutput.writeInt(this.indicator);
     }
 
     @Override
     public void readFields(DataInput dataInput) throws IOException {
-
+        this.destAirport = dataInput.readInt();
+        this.indicator = dataInput.readInt();
     }
 }
