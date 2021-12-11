@@ -6,7 +6,7 @@ import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 public class FlightsStatsApp {
-    public static void main(Stringp[] args) throws Exception {
+    public static void main(String[] args) throws Exception {
         // проверка на правильность ввода
         // формат: FlightsStatsApp <путь к списку рейсов> <путь к списку аэропортов> <путь вывода>
         if (args.length != 3) {
@@ -21,7 +21,7 @@ public class FlightsStatsApp {
         // задание путей файлов ввода и вывода
         MultipleInputs.addInputPath(job, new Path(args[0]), TextInputFormat.class, FlightsMapper.class);
         MultipleInputs.addInputPath(job, new Path(args[1]), TextInputFormat.class, AirportsMapper.class);
-        FileOutputFormat.addInputPath(job, new Path(args[2]));
+        FileOutputFormat.addOutputPath(job, new Path(args[2]));
 
         job.setMapOutputKeyClass(WritableComparable.class);
         job.setMapOutputValueClass(Text.class);
