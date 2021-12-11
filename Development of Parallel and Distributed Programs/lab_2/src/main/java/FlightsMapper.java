@@ -19,7 +19,10 @@ public class FlightsMapper extends Mapper<LongWritable, Text, AnFWritableCompara
         if (key.get() > 0) {
             String destinationAirport = row[DEST_AIRPORT_ID];
             String flightDelay = row[FLIGHT_DELAY];
-            
+            boolean cancelled = Float.parseFloat(row[CANCELLED_STATUS]) == CANCELLED;
+            if (!cancelled && !flightDelay.isEmpty()) {
+                
+            }
         }
     }
 }
