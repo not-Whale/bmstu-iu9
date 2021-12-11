@@ -8,7 +8,7 @@ public class AirportsMapper extends Mapper<LongWritable, Text, AnFWritableCompar
     public static final String SEPARATOR = "\",\"";
     public static final int INDICATOR = 0;
     public static final int AIRPORT_ID = 0;
-    
+    public static final int AIRPORT_
 
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
