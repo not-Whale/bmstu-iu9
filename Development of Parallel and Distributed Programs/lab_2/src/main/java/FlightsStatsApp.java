@@ -15,6 +15,6 @@ public class FlightsStatsApp {
         MultipleInputs.addInputPath(job, new Path(args[1]), TextInputFormat.class, AirportsMapper.class);
         FileOutputFormat.addInputPath(job, new Path(args[2]));
 
-
+        
     }
 }
