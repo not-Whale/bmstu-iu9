@@ -3,7 +3,8 @@ public class FlightsStatsApp {
         // проверка на правильность ввода
         // формат: FlightsStatsApp <путь к списку рейсов> <путь к списку аэропортов> <путь вывода>
         if (args.length != 3) {
-            System.err.println("Usage: FlightsStatsApp <flights list path> <airports list path> <output path>")
+            System.err.println("Usage: FlightsStatsApp <flights list path> <airports list path> <output path>");
+            System.exit(-1);
         }
 
         Job job = Job.getInstance();
@@ -15,6 +16,6 @@ public class FlightsStatsApp {
         MultipleInputs.addInputPath(job, new Path(args[1]), TextInputFormat.class, AirportsMapper.class);
         FileOutputFormat.addInputPath(job, new Path(args[2]));
 
-        
+
     }
 }
