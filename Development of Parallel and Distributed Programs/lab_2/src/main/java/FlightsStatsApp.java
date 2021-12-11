@@ -21,7 +21,7 @@ public class FlightsStatsApp {
         // задание путей файлов ввода и вывода
         MultipleInputs.addInputPath(job, new Path(args[0]), TextInputFormat.class, FlightsMapper.class);
         MultipleInputs.addInputPath(job, new Path(args[1]), TextInputFormat.class, AirportsMapper.class);
-        FileOutputFormat.addOutputPath(job, new Path(args[2]));
+        FileOutputFormat.setOutputPath(job, new Path(args[2]));
 
         job.setMapOutputKeyClass(WritableComparable.class);
         job.setMapOutputValueClass(Text.class);
