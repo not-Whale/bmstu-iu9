@@ -16,7 +16,7 @@ public class AnFWritableComparable implements WritableComparable<AnFWritableComp
 
     @Override
     public int compareTo(AnFWritableComparable o) {
-        
+        int airport
     }
 
     @Override
