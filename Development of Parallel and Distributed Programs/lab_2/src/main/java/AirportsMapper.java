@@ -8,7 +8,7 @@ public class AirportsMapper extends Mapper<LongWritable, Text, AnFWritableCompar
     public static final String SEPARATOR = ",";
     public static final int INDICATOR = 0;
     public static final int AIRPORT_CODE = 0;
-    public static final int AIRPORT_DESCRIPTON = 1;
+    public static final int AIRPORT_DESCRIPTION = 1;
 
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
@@ -17,7 +17,8 @@ public class AirportsMapper extends Mapper<LongWritable, Text, AnFWritableCompar
         if (key.get() > 0) {
             String airportCodeStr = row[AIRPORT_CODE].replaceAll("\"", "");
             int airportCode = Integer.getInteger(airportCodeStr);
-            context.write();
+            String airportDescription = row[AIRPORT_DESCRIPTION];
+            context.write(new AnFWritableComparable(airportCode, INDICATOR), new Text(airportDescription));
         }
     }
 }
