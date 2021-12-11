@@ -1,2 +1,2 @@
-public class WritableComparable {
+public class AnFWritableComparable {
 }
