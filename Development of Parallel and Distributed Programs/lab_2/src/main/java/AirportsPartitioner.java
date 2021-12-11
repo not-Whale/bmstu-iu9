@@ -5,6 +5,6 @@ import javax.xml.soap.Text;
 public class AirportsPartitioner extends Partitioner<AnFWritableComparable, Text> {
     @Override
     public int getPartition(AnFWritableComparable anFWritableComparable, Text text, int i) {
-        return 0;
+        return anFWritableComparable.getDestAirport()
     }
 }
