@@ -17,7 +17,7 @@ public class AirportsMapper extends Mapper<LongWritable, Text, AnFWritableCompar
         if (key.get() > 0) {
             String airportCodeStr = row[AIRPORT_CODE].replaceAll("\"", "").trim();
             int airportCode = Integer.parseInt(airportCodeStr);
-            String airportDescription = row[AIRPORT_DESCRIPTION];
+            String airportDescription = row[AIRPORT_DESCRIPTION].replaceAll("\"", "").trim();
             context.write(new AnFWritableComparable(airportCode, INDICATOR), new Text(airportDescription));
         }
     }
