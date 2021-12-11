@@ -16,7 +16,7 @@ public class AnFWritableComparable implements WritableComparable<AnFWritableComp
 
     @Override
     public int compareTo(AnFWritableComparable o) {
-        return 0;
+        
     }
 
     @Override
