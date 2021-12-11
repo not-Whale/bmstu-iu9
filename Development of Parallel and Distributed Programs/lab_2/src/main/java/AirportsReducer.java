@@ -11,7 +11,7 @@ public class AirportsReducer extends Reducer<AnFWritableComparable, Text, Text, 
         float averageDelay = 0.0f;
         int numberOfFlights = 0;
         Iterator<Text> iterator = values.iterator();
-        Text destinationAirport = new Text(iterator.next());
+        Text destinationAirport = new Text(String.valueOf(key.getDestAirport()));
         while (iterator.hasNext()) {
             String delayStr = iterator.next().toString();
             float delay = Float.parseFloat(delayStr);
