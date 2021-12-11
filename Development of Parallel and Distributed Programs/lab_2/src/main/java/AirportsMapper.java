@@ -5,7 +5,7 @@ import org.apache.hadoop.mapreduce.Mapper;
 import java.io.IOException;
 
 public class AirportsMapper extends Mapper<LongWritable, Text, AnFWritableComparable, Text> {
-    public static final String SEPARATOR = "\",\"";
+    public static final String SEPARATOR = ",";
     public static final int INDICATOR = 0;
     public static final int AIRPORT_CODE = 0;
     public static final int AIRPORT_DESCRIPTON = 1;
@@ -17,6 +17,7 @@ public class AirportsMapper extends Mapper<LongWritable, Text, AnFWritableCompar
         if (key.get() > 0) {
             String airportCodeStr = row[AIRPORT_CODE].replaceAll("\"", "");
             int airportCode = Integer.getInteger(airportCodeStr);
+            context.write();
         }
     }
 }
