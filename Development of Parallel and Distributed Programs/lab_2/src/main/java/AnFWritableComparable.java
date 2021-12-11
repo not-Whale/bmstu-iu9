@@ -5,6 +5,10 @@ import java.io.DataOutput;
 import java.io.IOException;
 
 public class AnFWritableComparable implements WritableComparable<AnFWritableComparable> {
+    public AnFWritableComparable(int parseInt, int indicator) {
+        
+    }
+
     @Override
     public int compareTo(AnFWritableComparable o) {
         return 0;
