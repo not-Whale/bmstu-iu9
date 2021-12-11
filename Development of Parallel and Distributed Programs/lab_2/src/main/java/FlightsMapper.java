@@ -22,7 +22,7 @@ public class FlightsMapper extends Mapper<LongWritable, Text, AnFWritableCompara
             boolean cancelled = Float.parseFloat(row[CANCELLED_STATUS]) == CANCELLED;
             if (!cancelled && !flightDelay.isEmpty()) {
                 float delay = Float.parseFloat(flightDelay);
-                context.write(new AnFWritableComparable(Integer.parseInt(destinationAirport)), );
+                context.write(new AnFWritableComparable(Integer.parseInt(destinationAirport), INDICATOR), new Text(flightDelay));
             }
         }
     }
