@@ -1,5 +1,5 @@
 import org.apache.hadoop.fs.Path;
-
+import org.apache.hadoop.mapreduce.Job;
 
 public class FlightsStatsApp {
     public static void main(Stringp[] args) throws Exception {
