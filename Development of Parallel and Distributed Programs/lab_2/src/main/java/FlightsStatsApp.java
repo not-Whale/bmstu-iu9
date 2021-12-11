@@ -27,7 +27,6 @@ public class FlightsStatsApp {
         job.setPartitionerClass(AirportsPatririoner.class);
         job.setFroupingComparatorClass(AirportsGroupingComparator.class);
         job.setReducerClass(AirportsReducer.class);
-
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(Text.class);
         job.setNumReduceTasks(2);
