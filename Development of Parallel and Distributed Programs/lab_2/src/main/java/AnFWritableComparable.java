@@ -5,8 +5,13 @@ import java.io.DataOutput;
 import java.io.IOException;
 
 public class AnFWritableComparable implements WritableComparable<AnFWritableComparable> {
-    public AnFWritableComparable(int parseInt, int indicator) {
-        
+    private int destAirport;
+    private int indicator;
+
+    public AnFWritableComparable(int destinationAirport, int indicator) {
+        super();
+        this.destAirport = destinationAirport;
+        this.indicator = indicator;
     }
 
     @Override
