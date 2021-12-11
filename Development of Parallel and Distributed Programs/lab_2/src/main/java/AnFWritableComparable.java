@@ -14,6 +14,10 @@ public class AnFWritableComparable implements WritableComparable<AnFWritableComp
         this.indicator = indicator;
     }
 
+    public int getDestAirport() {
+        return this.destAirport;
+    }
+
     @Override
     public int compareTo(AnFWritableComparable o) {
         int airportCodesIsEqual = Integer.compare(this.destAirport, o.destAirport);
