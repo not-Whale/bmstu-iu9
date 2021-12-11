@@ -22,7 +22,15 @@ public class FlightsStatsApp {
         MultipleInputs.addInputPath(job, new Path(args[1]), TextInputFormat.class, AirportsMapper.class);
         FileOutputFormat.addInputPath(job, new Path(args[2]));
 
-        
+        job.setMapOutputKeyClass(Writable.Comparable.class);
+        job.setMapOutputValueClass(Text.class);
+        job.setPartitionerClass(AirportsPatririoner.class);
+        job.setFroupingComparatorClass(AirportsGroupingComparator.class);
+        job.setReducerClass(AirportsReducer.class);
+
+        job.setOutputKeyClass(Text.class);
+        job.setOutputValueClass(Text.class);
+        job.setNumReduceTasks(2);
 
         System.exit(job.waitForCompletion(true) ? 0 : 1);
     }
