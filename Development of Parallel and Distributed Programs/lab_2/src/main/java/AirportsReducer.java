@@ -1,4 +1,6 @@
 import java.io.IOException;
+import java.util.Iterator;
+
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
@@ -7,5 +9,25 @@ public class AirportsReducer extends Reducer<AnFWritableComparable, Text, Text, 
         float minDelay = Float.MAX_VALUE;
         float maxDelay = Float.MIN_VALUE;
         float averageDelay = 0.0f;
+        int numberOfFlights = 0;
+        Iterator<Text> iterator = values.iterator();
+        Text destinationAirport = iterator.next();
+        while (iterator.hasNext()) {
+            String delayStr = iterator.next().toString();
+            float delay = Float.parseFloat(delayStr);
+            if (delay > maxDelay) {
+                maxDelay = delay;
+            }
+            if (delay < minDelay) {
+                minDelay = delay;
+            }
+            averageDelay += delay;
+            numberOfFlights++;
+        }
+
+        if (numberOfFlights != 0) {
+            averageDelay = averageDelay / numberOfFlights;
+            context.write(destinationAirport, new Text(minDelay + ", " + maxDelay + ", " + averageDelay));
+        }
     }
 }
