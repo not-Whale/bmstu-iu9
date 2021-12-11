@@ -7,8 +7,8 @@ import java.io.IOException;
 public class AirportsMapper extends Mapper<LongWritable, Text, AnFWritableComparable, Text> {
     public static final String SEPARATOR = "\",\"";
     public static final int INDICATOR = 0;
-    public static final int AIRPORT_ID = 0;
-    public static final int AIRPORT_
+    public static final int AIRPORT_CODE = 0;
+    public static final int AIRPORT_DESCRIPTON = 1;
 
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
