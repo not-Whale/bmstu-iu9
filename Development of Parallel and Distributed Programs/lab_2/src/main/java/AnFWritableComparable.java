@@ -10,7 +10,6 @@ public class AnFWritableComparable implements WritableComparable<AnFWritableComp
     private IntWritable indicator;
 
     public AnFWritableComparable(IntWritable destinationAirport, IntWritable indicator) {
-        super();
         this.destAirport = destinationAirport;
         this.indicator = indicator;
     }
@@ -28,6 +27,9 @@ public class AnFWritableComparable implements WritableComparable<AnFWritableComp
     public int compareTo(AnFWritableComparable o) {
         int airportCodesIsEqual = this.getDestAirport()
                 .compareTo(o.getDestAirport());
+
+        int indicatorsIsEqual = this.getIndicator()
+                .compareTo(o.getIndicator());
 
         return airportCodesIsEqual == 0 ? indicatorsIsEqual : airportCodesIsEqual;
     }
