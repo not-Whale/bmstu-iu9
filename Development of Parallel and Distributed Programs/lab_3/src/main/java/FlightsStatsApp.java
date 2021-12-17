@@ -1,5 +1,6 @@
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
+import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 
 public class FlightsStatsApp {
@@ -13,5 +14,7 @@ public class FlightsStatsApp {
         JavaSparkContext sc = new JavaSparkContext(conf);
     }
 
-    private static JavaRDD<String> readFromCSV(JavaSparkContext sc, final String path, final )
+    private static JavaRDD<String> readFromCSV(JavaSparkContext sc, final String path, final firstLinePrefix) {
+
+    }
 }
