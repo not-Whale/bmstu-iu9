@@ -39,7 +39,8 @@ public class FlightsStatsApp {
                 airport -> {
                     String[] airportsData = airport.split(SEPARATOR, 2);
                     return new Tuple2<>(
-                            FlightsDelay.
+                            airportsData[0].replaceAll("\"", ""),
+                            airportsData[1].replaceAll("\"", "")
                     );
                 }
         );
