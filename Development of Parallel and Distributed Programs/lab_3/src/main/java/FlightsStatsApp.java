@@ -57,6 +57,8 @@ public class FlightsStatsApp {
                         airportsBroadcasted.value()
                 )
         );
+
+        
     }
 
     private static JavaRDD<String> readFromCSV(JavaSparkContext sc, final String path, final String firstLinePrefix) {
