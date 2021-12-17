@@ -3,13 +3,27 @@ import java.io.Serializable;
 public class FlightsDelay implements Serializable {
     private static final int DEPARTURE_AIRPORT = 11;
     private static final int DESTINATION_AIRPORT = 14;
-    private static final int DALEY_DURATION = 18;
+    private static final int DELAY_DURATION = 18;
     private static final int CANCELLED_STATUS = 19;
 
     private boolean cancelled;
     private float delay;
 
     public FlightsDelay(String[] flightData) {
-        
+        String cancelledStatusString = flightData[CANCELLED_STATUS];
+        float cancelledStatus = Float.parseFloat(cancelledStatusString);
+
+        if (cancelledStatus == 0.0) {
+            this.cancelled = false;
+            this.delay = Float.parseFloat(flightData[DELAY_DURATION]);
+        } else {
+            this.cancelled = true;
+        }
     }
+
+    public boolean getCancelledStatus() { return this.cancelled; }
+
+    public float getDelay() { return this.delay; }
+
+    
 }
