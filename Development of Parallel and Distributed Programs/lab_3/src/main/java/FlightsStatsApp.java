@@ -1,4 +1,5 @@
 import org.apache.spark.SparkConf;
+import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 
 public class FlightsStatsApp {
@@ -11,6 +12,6 @@ public class FlightsStatsApp {
         SparkConf conf = new SparkConf().setAppName("lab3");
         JavaSparkContext sc = new JavaSparkContext(conf);
 
-        
+        JavaPairRDD<Tuple2<String, String>, >
     }
 }
