@@ -28,7 +28,9 @@ public class AirportsFlightsStats extends DelaysStats {
                 + destinationAirportDescription
                 + "| max delay: "
                 + getMaxDelay()
-                + ", "
-
+                + ", percent of cancelled flights: "
+                + cancelledFlightsPercent
+                + ", percent of delayed flights: "
+                + delayedFlightsPercent;
     }
 }
