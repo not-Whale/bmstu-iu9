@@ -21,6 +21,6 @@ public class AirportsFlightsStats extends DelaysStats {
 
     @Override
     public String toString() {
-        
+        String cancelledFlightsPercent = 
     }
 }
