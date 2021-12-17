@@ -37,8 +37,7 @@ public class AirportsReducer extends Reducer<AnFWritableComparable, Text, Text, 
             context.write(
                     new Text(
                             "airport: "
-                                    + airportDescription
-                                    + "    |    "),
+                                    + airportDescription),
                     new Text(
                             "min: "
                                     + minDelay
