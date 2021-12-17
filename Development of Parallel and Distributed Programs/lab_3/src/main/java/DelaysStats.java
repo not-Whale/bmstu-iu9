@@ -13,5 +13,37 @@ public class DelaysStats implements Serializable {
         this.flightsNumber = flightsNumber;
     }
 
-    
+    public DelaysStats(FlightsDelay flightsDelay) {
+        this.delayedFlightsCount = 0;
+        this.cancelledFlightCount = 0;
+        this.maxDelay = 0.0f;
+        this.flightsNumber = 1;
+
+        if (flightsDelay.getCancelledStatus()) {
+            this.cancelledFlightCount++;
+        } else {
+            float delay = flightsDelay.getDelay();
+            if (delay > 0.0f) {
+                this.delayedFlightsCount++;
+                this.maxDelay = Math.max(delay, this.maxDelay);
+            }
+        }
+    }
+
+    public static DelaysStats add(DelaysStats a, DelaysStats b) {
+        return new DelaysStats(
+                Math.max(a.getMaxDelay(), b.getMaxDelay()),
+                a.getFlightsNumber() + b.getFlightsNumber(),
+                a.getDelayedFlightsCount() + b.getDelayedFlightsCount(),
+                a.getCancelledFlightsCount() + b.getCancelledFlightsCount()
+        );
+    }
+
+    public float getMaxDelay() { return this.maxDelay; }
+
+    public int getFlightsNumber() { return this.flightsNumber; }
+
+    public float getDelayedFlightsCount() { return this.delayedFlightsCount; }
+
+    public float getCancelledFlightsCount() { return this.cancelledFlightCount; }
 }
