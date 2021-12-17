@@ -5,9 +5,9 @@ import org.apache.spark.api.java.JavaSparkContext;
 import scala.Tuple2;
 
 public class FlightsStatsApp {
-    private static final String flightsFilePath = "scr/main/resources/flights.csv";
-    private static final String airportsFilePath = "scr/main/resources/airports.csv";
-    private static final String outputFileName = "output_lab_3";
+    private static final String FLIGHTS_FILE_PATH = "scr/main/resources/flights.csv";
+    private static final String AIRPORTS_FILE_PATH = "scr/main/resources/airports.csv";
+    private static final String OUTPUT_FILE_PATH = "output_lab_3";
     private static final String SEPARATOR = ",";
 
     public static void main(String[] args) throws Exception {
@@ -15,6 +15,17 @@ public class FlightsStatsApp {
         JavaSparkContext sc = new JavaSparkContext(conf);
 
         JavaPairRDD<Tuple2<String, String>, FlightsDelay> flightsDelays;
+        JavaRDD<String> flightsDataCSV = readFromCSV(sc, FLIGHTS_FILE_PATH, "\"");
+        flightsDelays = flightsDataCSV.mapToPair(
+                flight -> {
+                    String[] flightData = flight.split(SEPARATOR);
+                    return new Tuple2<>(
+                            FlightsDelay.getAirportsPair(flightData),
+                            new FlightsDelay(flightData)
+                    );
+                }
+        );
+
         JavaPairRDD<Tuple2<String, String>, DelaysStats> delaysStats;
         JavaPairRDD<String, String> airportsDescriptions;
     }
