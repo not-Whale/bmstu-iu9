@@ -27,6 +27,12 @@ public class FlightsStatsApp {
         );
 
         JavaPairRDD<Tuple2<String, String>, DelaysStats> delaysStats;
+        delaysStats = flightsDelays.combineByKey(
+                DelaysStats::new,
+                DelaysStats::addDelay,
+                DelaysStats::add
+        );
+
         JavaPairRDD<String, String> airportsDescriptions;
     }
 
