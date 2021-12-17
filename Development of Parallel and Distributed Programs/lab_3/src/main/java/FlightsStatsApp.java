@@ -35,6 +35,14 @@ public class FlightsStatsApp {
 
         JavaPairRDD<String, String> airportsDescriptions;
         JavaRDD<String> airportsDataCSV = readFromCSV(sc, AIRPORTS_FILE_PATH, "C");
+        airportsDataCSV.mapToPair(
+                airport -> {
+                    String[] airportsData = airport.split(SEPARATOR, 2);
+                    return new Tuple2<>(
+                            FlightsDelay.
+                    );
+                }
+        );
     }
 
     private static JavaRDD<String> readFromCSV(JavaSparkContext sc, final String path, final String firstLinePrefix) {
