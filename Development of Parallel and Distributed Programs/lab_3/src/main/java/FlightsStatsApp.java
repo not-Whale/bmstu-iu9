@@ -15,6 +15,7 @@ public class FlightsStatsApp {
         JavaSparkContext sc = new JavaSparkContext(conf);
 
         JavaPairRDD<Tuple2<String, String>, FlightsDelay> flightsDelays;
+        JavaPairRDD<Tuple2<String, String>, DelaysStats> delaysStats;
     }
 
     private static JavaRDD<String> readFromCSV(JavaSparkContext sc, final String path, final String firstLinePrefix) {
