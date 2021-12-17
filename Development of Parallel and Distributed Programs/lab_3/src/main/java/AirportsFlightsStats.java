@@ -21,6 +21,12 @@ public class AirportsFlightsStats extends DelaysStats {
 
     @Override
     public String toString() {
-        String cancelledFlightsPercent = 
+        String cancelledFlightsPercent = String.valueOf(getCancelledFlightsCount() / getFlightsNumber());
+        String delayedFlightsPercent = String.valueOf(getDelayedFlightsCount() / getFlightsNumber());
+        return departureAirportDescription
+                + " - "
+                + destinationAirportDescription
+                + ": Max "
+
     }
 }
