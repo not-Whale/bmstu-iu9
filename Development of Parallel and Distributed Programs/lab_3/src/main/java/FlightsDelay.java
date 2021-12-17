@@ -7,5 +7,6 @@ public class FlightsDelay implements Serializable {
     private final int flightsNumber;
 
     public FlightsDelay() {
+
     }
 }
