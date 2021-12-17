@@ -6,30 +6,46 @@ import org.apache.hadoop.mapreduce.Reducer;
 
 public class AirportsReducer extends Reducer<AnFWritableComparable, Text, Text, Text> {
     protected void reduce(AnFWritableComparable key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
-        float minDelay = Float.MAX_VALUE;
-        float maxDelay = Float.MIN_VALUE;
-        float averageDelay = 0.0f;
-        int numberOfFlights = 0;
+        final Text airportDescription;
+        float averageDelay;
 
         Iterator<Text> iterator = values.iterator();
-        Text airportDescription = iterator.next();
+        airportDescription = new Text(iterator.next().toString());
+
+        float minDelay = Float.MAX_VALUE;
+        float maxDelay = Float.MIN_VALUE;
+        float sumDelay = 0;
+        int numberOfFlights = 0;
         while (iterator.hasNext()) {
-            Text current = iterator.next();
-            String delayStr = current.toString();
+            String delayStr = iterator.next().toString();
             float delay = Float.parseFloat(delayStr);
+
             if (delay > maxDelay) {
                 maxDelay = delay;
             }
+
             if (delay < minDelay) {
                 minDelay = delay;
             }
-            averageDelay += delay;
+
+            sumDelay += delay;
             numberOfFlights++;
         }
 
         if (numberOfFlights != 0) {
-            averageDelay = averageDelay / numberOfFlights;
-            context.write(new Text("airport: " + airportDescription + "    |    "), new Text("min: " + minDelay + ", max: " + maxDelay + ", average: " + averageDelay));
+            averageDelay = sumDelay / numberOfFlights;
+            context.write(
+                    new Text(
+                            "airport: "
+                                    + airportDescription
+                                    + "    |    "),
+                    new Text(
+                            "min: "
+                                    + minDelay
+                                    + ", max: "
+                                    + maxDelay
+                                    + ", average: "
+                                    + averageDelay));
         }
     }
 }
