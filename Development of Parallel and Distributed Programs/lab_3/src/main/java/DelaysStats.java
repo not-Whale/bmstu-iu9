@@ -13,28 +13,6 @@ public class DelaysStats implements Serializable {
         this.flightsNumber = flightsNumber;
     }
 
-    public DelaysStats(FlightsDelay flightsDelay) {
-        this.delayedFlightsCount = 0;
-        this.cancelledFlightCount = 0;
-        this.maxDelay = 0.0f;
-        this.flightsNumber = 1;
-        update(flightsDelay);
-    }
-
-    public DelaysStats addDelay(DelaysStats delaysStats, FlightsDelay flightsDelay) {
-        update(flightsDelay);
-        
-    }
-
-    public static DelaysStats add(DelaysStats a, DelaysStats b) {
-        return new DelaysStats(
-                Math.max(a.getMaxDelay(), b.getMaxDelay()),
-                a.getFlightsNumber() + b.getFlightsNumber(),
-                a.getDelayedFlightsCount() + b.getDelayedFlightsCount(),
-                a.getCancelledFlightsCount() + b.getCancelledFlightsCount()
-        );
-    }
-
     private void update(FlightsDelay flightsDelay) {
         if (flightsDelay.getCancelledStatus()) {
             this.cancelledFlightCount++;
@@ -45,6 +23,33 @@ public class DelaysStats implements Serializable {
                 this.maxDelay = Math.max(delay, this.maxDelay);
             }
         }
+    }
+
+    public DelaysStats(FlightsDelay flightsDelay) {
+        this.delayedFlightsCount = 0;
+        this.cancelledFlightCount = 0;
+        this.maxDelay = 0.0f;
+        this.flightsNumber = 1;
+        update(flightsDelay);
+    }
+
+    public static DelaysStats addDelay(DelaysStats delaysStats, FlightsDelay flightsDelay) {
+        delaysStats.update(flightsDelay);
+        return new DelaysStats(
+                delaysStats.getMaxDelay(),
+                delaysStats.getFlightsNumber() + 1,
+                delaysStats.getDelayedFlightsCount(),
+                delaysStats.getCancelledFlightsCount()
+        );
+    }
+
+    public static DelaysStats add(DelaysStats a, DelaysStats b) {
+        return new DelaysStats(
+                Math.max(a.getMaxDelay(), b.getMaxDelay()),
+                a.getFlightsNumber() + b.getFlightsNumber(),
+                a.getDelayedFlightsCount() + b.getDelayedFlightsCount(),
+                a.getCancelledFlightsCount() + b.getCancelledFlightsCount()
+        );
     }
 
     public float getMaxDelay() { return this.maxDelay; }
