@@ -2,6 +2,7 @@ import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
+import scala.Tuple2;
 
 public class FlightsStatsApp {
     private static final String flightsFilePath = "scr/main/resources/flights.csv";
@@ -13,7 +14,7 @@ public class FlightsStatsApp {
         SparkConf conf = new SparkConf().setAppName("lab3");
         JavaSparkContext sc = new JavaSparkContext(conf);
 
-        
+        JavaPairRDD<Tuple2<String, String>, FlightsDelay> flightsDelays;
     }
 
     private static JavaRDD<String> readFromCSV(JavaSparkContext sc, final String path, final String firstLinePrefix) {
