@@ -18,4 +18,9 @@ public class AirportsFlightsStats extends DelaysStats {
         this.departureAirportDescription = airportDescription.get(airportDescriptions._1());
         this.destinationAirportDescription = airportDescription.get(airportDescriptions._2());
     }
+
+    @Override
+    public String toString() {
+        
+    }
 }
