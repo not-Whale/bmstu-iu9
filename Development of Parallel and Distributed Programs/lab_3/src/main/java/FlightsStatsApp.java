@@ -13,5 +13,5 @@ public class FlightsStatsApp {
         JavaSparkContext sc = new JavaSparkContext(conf);
     }
 
-    private static JavaRDD<String> readFromCSV(JavaSparkContext sc, String path, )
+    private static JavaRDD<String> readFromCSV(JavaSparkContext sc, final String path, final )
 }
