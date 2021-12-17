@@ -16,9 +16,8 @@ public class FlightsStatsApp {
 
         Job job = Job.getInstance();
         job.setJarByClass(FlightsStatsApp.class);
-        job.setJobName("Reduce side join App");
+        job.setJobName("Reduce side join app");
 
-        // задание путей файлов ввода и вывода
         MultipleInputs.addInputPath(job, new Path(args[0]), TextInputFormat.class, FlightsMapper.class);
         MultipleInputs.addInputPath(job, new Path(args[1]), TextInputFormat.class, AirportsMapper.class);
         FileOutputFormat.setOutputPath(job, new Path(args[2]));

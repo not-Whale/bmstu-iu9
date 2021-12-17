@@ -24,10 +24,7 @@ public class AnFWritableComparable implements WritableComparable<AnFWritableComp
     public int compareTo(AnFWritableComparable o) {
         int airportCodesIsEqual = Integer.compare(this.destAirport, o.destAirport);
         int indicatorsIsEqual = Integer.compare(this.indicator, o.indicator);
-        if (airportCodesIsEqual == 0 && indicatorsIsEqual == 0) {
-            return 0;
-        }
-        return 1;
+        return airportCodesIsEqual == 0 ? indicatorsIsEqual : airportCodesIsEqual;
     }
 
     @Override
