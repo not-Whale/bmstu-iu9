@@ -8,10 +8,8 @@ import java.io.IOException;
 public class WordMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-        // получаем строку из value
         String inputString = value.toString();
 
-        // перевод в нижний регистр
         inputString = inputString.toLowerCase();
         // удаляем все спецсимволы
         // сначала для прямой речи
@@ -26,7 +24,6 @@ public class WordMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
         // и удаляем их в начале и конце файла
         inputString = inputString.trim();
 
-        // разделение на слова, запись в массив
         String[] words = inputString.split(" ");
 
         // запись слов в контекс с счетчиком 1
