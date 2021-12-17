@@ -1,3 +1,5 @@
+import scala.Tuple2;
+
 import java.io.Serializable;
 
 public class FlightsDelay implements Serializable {
@@ -21,11 +23,14 @@ public class FlightsDelay implements Serializable {
         }
     }
 
-    public static Tuple2<String, String> getAirportsPair(String[] flightData) {
-        
-    }
-
     public boolean getCancelledStatus() { return this.cancelled; }
 
     public float getDelay() { return this.delay; }
+
+    public static Tuple2<String, String> getAirportsPair(String[] flightData) {
+        return new Tuple2<>(
+                flightData[DEPARTURE_AIRPORT],
+                flightData[DESTINATION_AIRPORT]
+        );
+    }
 }
