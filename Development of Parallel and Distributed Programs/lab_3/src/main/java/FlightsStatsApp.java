@@ -58,7 +58,7 @@ public class FlightsStatsApp {
                 )
         );
 
-        
+        parsedAirportsFlightsData.saveAsTextFile(OUTPUT_FILE_PATH);
     }
 
     private static JavaRDD<String> readFromCSV(JavaSparkContext sc, final String path, final String firstLinePrefix) {
