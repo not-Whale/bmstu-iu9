@@ -21,9 +21,11 @@ public class FlightsDelay implements Serializable {
         }
     }
 
+    public static Tuple2<String, String> getAirportsPair(String[] flightData) {
+        
+    }
+
     public boolean getCancelledStatus() { return this.cancelled; }
 
     public float getDelay() { return this.delay; }
-
-    
 }
