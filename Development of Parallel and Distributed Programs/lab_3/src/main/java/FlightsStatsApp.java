@@ -15,6 +15,7 @@ public class FlightsStatsApp {
     }
 
     private static JavaRDD<String> readFromCSV(JavaSparkContext sc, final String path, final String firstLinePrefix) {
-        
+        JavaRDD<String> data = sc.textFile(path);
+        return data.filter(line -> !line.startsWith(firstLinePrefix));
     }
 }
