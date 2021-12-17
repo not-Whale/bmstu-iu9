@@ -14,6 +14,7 @@ public class FlightsStatsApp {
         SparkConf conf = new SparkConf().setAppName("lab3");
         JavaSparkContext sc = new JavaSparkContext(conf);
 
+        Java
         JavaPairRDD<Tuple2<String, String>, FlightsDelay> flightsDelays;
         JavaPairRDD<Tuple2<String, String>, DelaysStats> delaysStats;
     }
