@@ -15,7 +15,7 @@ public class FlightsDelay implements Serializable {
         String cancelledStatusString = flightData[CANCELLED_STATUS];
         float cancelledStatus = Float.parseFloat(cancelledStatusString);
 
-        if (cancelledStatus < 1.0) {
+        if (cancelledStatus < 1.0 && flightData[DELAY_DURATION].length() != 0) {
             this.cancelled = false;
             this.delay = Float.parseFloat(flightData[DELAY_DURATION]);
         } else {
