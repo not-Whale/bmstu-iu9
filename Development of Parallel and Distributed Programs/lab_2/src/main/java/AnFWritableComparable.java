@@ -1,3 +1,4 @@
+import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.WritableComparable;
 
 import java.io.DataInput;
@@ -5,20 +6,23 @@ import java.io.DataOutput;
 import java.io.IOException;
 
 public class AnFWritableComparable implements WritableComparable<AnFWritableComparable> {
-    private int destAirport;
-    private int indicator;
+    private IntWritable destAirport;
+    private IntWritable indicator;
 
-    public AnFWritableComparable(int destinationAirport, int indicator) {
+    public AnFWritableComparable(IntWritable destinationAirport, IntWritable indicator) {
         super();
         this.destAirport = destinationAirport;
         this.indicator = indicator;
     }
 
-    public AnFWritableComparable() {}
-
-    public int getDestAirport() {
-        return this.destAirport;
+    public AnFWritableComparable() {
+        this.destAirport = new IntWritable(0);
+        this.indicator = new IntWritable(0);
     }
+
+    public IntWritable getDestAirport() { return this.destAirport; }
+
+    public IntWritable getIndicator() { return this.indicator; };
 
     @Override
     public int compareTo(AnFWritableComparable o) {
@@ -29,13 +33,13 @@ public class AnFWritableComparable implements WritableComparable<AnFWritableComp
 
     @Override
     public void write(DataOutput dataOutput) throws IOException {
-        dataOutput.writeInt(this.destAirport);
-        dataOutput.writeInt(this.indicator);
+        destAirport.write(dataOutput);
+        indicator.write(dataOutput);
     }
 
     @Override
     public void readFields(DataInput dataInput) throws IOException {
-        this.destAirport = dataInput.readInt();
-        this.indicator = dataInput.readInt();
+        destAirport.readFields(dataInput);
+        indicator.readFields(dataInput);
     }
 }
