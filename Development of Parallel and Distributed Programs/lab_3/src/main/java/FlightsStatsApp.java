@@ -13,9 +13,10 @@ public class FlightsStatsApp {
     public static void main(String[] args) throws Exception {
         SparkConf conf = new SparkConf().setAppName("lab3");
         JavaSparkContext sc = new JavaSparkContext(conf);
-        
+
         JavaPairRDD<Tuple2<String, String>, FlightsDelay> flightsDelays;
         JavaPairRDD<Tuple2<String, String>, DelaysStats> delaysStats;
+        JavaPairRDD<String, String> airportsDescriptions;
     }
 
     private static JavaRDD<String> readFromCSV(JavaSparkContext sc, final String path, final String firstLinePrefix) {
