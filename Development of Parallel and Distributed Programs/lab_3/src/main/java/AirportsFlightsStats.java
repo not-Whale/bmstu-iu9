@@ -23,10 +23,12 @@ public class AirportsFlightsStats extends DelaysStats {
     public String toString() {
         String cancelledFlightsPercent = String.valueOf(getCancelledFlightsCount() / getFlightsNumber());
         String delayedFlightsPercent = String.valueOf(getDelayedFlightsCount() / getFlightsNumber());
-        return departureAirportDescription
+        return "|" + departureAirportDescription
                 + " - "
                 + destinationAirportDescription
-                + ": Max "
+                + "| max delay: "
+                + getMaxDelay()
+                + ", "
 
     }
 }
