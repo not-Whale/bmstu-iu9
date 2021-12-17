@@ -2,7 +2,10 @@ import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
+import org.apache.spark.broadcast.Broadcast;
 import scala.Tuple2;
+
+import java.util.Map;
 
 public class FlightsStatsApp {
     private static final String FLIGHTS_FILE_PATH = "scr/main/resources/flights.csv";
@@ -35,7 +38,7 @@ public class FlightsStatsApp {
 
         JavaPairRDD<String, String> airportsDescriptions;
         JavaRDD<String> airportsDataCSV = readFromCSV(sc, AIRPORTS_FILE_PATH, "C");
-        airportsDataCSV.mapToPair(
+        airportsDescriptions = airportsDataCSV.mapToPair(
                 airport -> {
                     String[] airportsData = airport.split(SEPARATOR, 2);
                     return new Tuple2<>(
@@ -45,7 +48,15 @@ public class FlightsStatsApp {
                 }
         );
 
-        
+        final Broadcast<Map<String, String>> airportsBroadcasted = sc.broadcast(airportsDescriptions.collectAsMap());
+
+        JavaRDD<AirportsFlightsStats> parsedAirportsFlightsData = delaysStats.map(
+                delaysWithAirports -> new AirportsFlightsStats(
+                        delaysWithAirports._1(),
+                        delaysWithAirports._2(),
+                        airportsBroadcasted.value()
+                )
+        );
     }
 
     private static JavaRDD<String> readFromCSV(JavaSparkContext sc, final String path, final String firstLinePrefix) {
