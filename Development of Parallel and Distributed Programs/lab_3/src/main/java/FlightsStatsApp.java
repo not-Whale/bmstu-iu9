@@ -34,7 +34,7 @@ public class FlightsStatsApp {
         );
 
         JavaPairRDD<String, String> airportsDescriptions;
-        
+        JavaRDD<String> airportsDataCSV = readFromCSV(sc, AIRPORTS_FILE_PATH, "C");
     }
 
     private static JavaRDD<String> readFromCSV(JavaSparkContext sc, final String path, final String firstLinePrefix) {
