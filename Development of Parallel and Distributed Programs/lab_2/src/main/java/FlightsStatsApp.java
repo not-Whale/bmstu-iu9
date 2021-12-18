@@ -7,8 +7,6 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 public class FlightsStatsApp {
     public static void main(String[] args) throws Exception {
-        // проверка на правильность ввода
-        // формат: FlightsStatsApp <путь к списку рейсов> <путь к списку аэропортов> <путь вывода>
         if (args.length != 3) {
             System.err.println("Usage: FlightsStatsApp <flights list path> <airports list path> <output path>");
             System.exit(-1);
