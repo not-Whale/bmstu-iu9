@@ -7,8 +7,6 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 public class WordCountApp {
     public static void main(String[] args) throws Exception {
-        // проверка на правильность ввода
-        // формат: WordCountApp <путь ввода> <путь вывода>
         if (args.length != 2) {
             System.err.println("Usage: WordCountApp <input path> <output path>");
             System.exit(-1);
@@ -18,11 +16,9 @@ public class WordCountApp {
         job.setJarByClass(WordCountApp.class);
         job.setJobName("Word count");
 
-        // задание путей файлов ввода и вывода
         FileInputFormat.addInputPath(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
-        // установка мапера, редьюсера и типа вывода
         job.setMapperClass(WordMapper.class);
         job.setReducerClass(WordReducer.class);
         job.setOutputKeyClass(Text.class);
