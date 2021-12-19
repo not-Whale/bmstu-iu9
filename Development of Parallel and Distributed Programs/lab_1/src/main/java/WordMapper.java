@@ -7,15 +7,14 @@ import java.io.IOException;
 
 public class WordMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
     private final String SPACE_SEPARATOR = " ";
-    private final int INITIAL_COUNT = 1;
 
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
         String inputString = value.toString();
         String[] words = replaceAndTrim(inputString).split(SPACE_SEPARATOR);
-
+        
         for (String word : words) {
-            context.write(new Text(word), new IntWritable(INITIAL_COUNT));
+            context.write(new Text(word), new IntWritable(1));
         }
     }
 
