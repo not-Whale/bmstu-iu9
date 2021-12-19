@@ -31,15 +31,7 @@ public class FlightsStatsApp {
                 }
         );
 
-        JavaPairRDD<Tuple2<String, String>, DelaysStats> delaysStats;
-        delaysStats = flightsDelays.combineByKey(
-                DelaysStats::new,
-                DelaysStats::addDelay,
-                DelaysStats::add
-        );
-
-        JavaPairRDD<String, String> airportsDescriptions;
-        JavaRDD<String> airportsDataCSV = readFromCSV(sc, AIRPORTS_FILE_PATH, AIRfloat averageDelay;
+        JavaPairRDD<Tuple2<String, 
         airportsDescriptions = airportsDataCSV.mapToPair(
                 airport -> {
                     String[] airportsData = airport.split(SEPARATOR, 2);
