@@ -21,7 +21,6 @@ public class AirportsMapper extends Mapper<LongWritable, Text, AnFWritableCompar
             String airportCodeString = deleteQuotesAndTrim(row[AIRPORT_CODE]);
             String airportDescription = deleteQuotesAndTrim(row[AIRPORT_DESCRIPTION]);
             int airportCode = Integer.parseInt(airportCodeString);
-
             context.write(
                     new AnFWritableComparable(
                             new IntWritable(airportCode),
