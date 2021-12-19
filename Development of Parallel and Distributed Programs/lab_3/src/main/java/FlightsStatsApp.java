@@ -42,8 +42,8 @@ public class FlightsStatsApp {
                 airport -> {
                     String[] airportsData = airport.split(SEPARATOR, 2);
                     return new Tuple2<>(
-                            airportsData[0].replaceAll("\"", ""),
-                            airportsData[1].replaceAll("\"", "")
+                            removeQuotes(airportsData[0]),
+                            removeQuotes(airportsData[1])
                     );
                 }
         );
@@ -59,6 +59,10 @@ public class FlightsStatsApp {
         );
 
         parsedAirportsFlightsData.saveAsTextFile(OUTPUT_FILE_PATH);
+    }
+
+    private static String removeQuotes(String data) {
+        return data.replaceAll("\"", "");
     }
 
     private static JavaRDD<String> readFromCSV(JavaSparkContext sc, final String path, final String firstLinePrefix) {

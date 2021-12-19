@@ -1,5 +1,5 @@
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.mapreduce.Mapper;
 
@@ -18,7 +18,9 @@ public class FlightsMapper extends Mapper<LongWritable, Text, AnFWritableCompara
         if (key.get() > 0) {
             String airportCodeString = row[DEST_AIRPORT_ID];
             int airportCode = Integer.parseInt(airportCodeString);
+
             String flightDelay = row[FLIGHT_DELAY];
+
             if (flightDelay.length() != 0) {
                 float delay = Float.parseFloat(flightDelay);
                 if (delay > 0.0f) {
@@ -26,7 +28,8 @@ public class FlightsMapper extends Mapper<LongWritable, Text, AnFWritableCompara
                             new AnFWritableComparable(
                                     new IntWritable(airportCode),
                                     new IntWritable(INDICATOR)),
-                            new Text(flightDelay));
+                            new Text(flightDelay)
+                    );
                 }
             }
         }

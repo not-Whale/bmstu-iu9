@@ -11,6 +11,8 @@ public class AirportsGroupingComparator extends WritableComparator {
         AnFWritableComparable key2 = (AnFWritableComparable) b;
 
         return key1.getDestAirport()
-                .compareTo(key2.getDestAirport());
+                .compareTo(
+                key2.getDestAirport()
+        );
     }
 }

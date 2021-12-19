@@ -6,8 +6,8 @@ import java.io.DataOutput;
 import java.io.IOException;
 
 public class AnFWritableComparable implements WritableComparable<AnFWritableComparable> {
-    private IntWritable destAirport;
-    private IntWritable indicator;
+    private final IntWritable destAirport;
+    private final IntWritable indicator;
 
     public AnFWritableComparable(IntWritable destinationAirport, IntWritable indicator) {
         this.destAirport = destinationAirport;
@@ -19,15 +19,18 @@ public class AnFWritableComparable implements WritableComparable<AnFWritableComp
         this.indicator = new IntWritable(0);
     }
 
-    public IntWritable getDestAirport() { return this.destAirport; }
+    public IntWritable getDestAirport() {
+        return this.destAirport;
+    }
 
-    public IntWritable getIndicator() { return this.indicator; };
+    public IntWritable getIndicator() {
+        return this.indicator;
+    }
 
     @Override
     public int compareTo(AnFWritableComparable o) {
         int airportCodesIsEqual = this.getDestAirport()
                 .compareTo(o.getDestAirport());
-
         int indicatorsIsEqual = this.getIndicator()
                 .compareTo(o.getIndicator());
 

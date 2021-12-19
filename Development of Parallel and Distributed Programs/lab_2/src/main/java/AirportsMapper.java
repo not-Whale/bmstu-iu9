@@ -1,5 +1,5 @@
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.mapreduce.Mapper;
 
@@ -23,6 +23,7 @@ public class AirportsMapper extends Mapper<LongWritable, Text, AnFWritableCompar
                     .replaceAll("\"", "")
                     .trim();
             int airportCode = Integer.parseInt(airportCodeString);
+
             context.write(
                     new AnFWritableComparable(
                             new IntWritable(airportCode),

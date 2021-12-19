@@ -16,6 +16,7 @@ public class AirportsReducer extends Reducer<AnFWritableComparable, Text, Text, 
         float maxDelay = Float.MIN_VALUE;
         float sumDelay = 0;
         int numberOfFlights = 0;
+
         while (iterator.hasNext()) {
             String delayStr = iterator.next().toString();
             float delay = Float.parseFloat(delayStr);

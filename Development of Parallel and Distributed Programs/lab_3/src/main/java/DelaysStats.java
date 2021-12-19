@@ -1,12 +1,12 @@
 import java.io.Serializable;
 
 public class DelaysStats implements Serializable {
-    private float delayedFlightsCount;
-    private float cancelledFlightCount;
+    private int delayedFlightsCount;
+    private int cancelledFlightCount;
     private float maxDelay;
     private final int flightsNumber;
 
-    public DelaysStats(float maxDelay, int flightsNumber, float delayedFlightsCount, float cancelledFlightCount) {
+    public DelaysStats(float maxDelay, int flightsNumber, int delayedFlightsCount, int cancelledFlightCount) {
         this.delayedFlightsCount = delayedFlightsCount;
         this.cancelledFlightCount = cancelledFlightCount;
         this.maxDelay = maxDelay;
@@ -56,7 +56,7 @@ public class DelaysStats implements Serializable {
 
     public int getFlightsNumber() { return this.flightsNumber; }
 
-    public float getDelayedFlightsCount() { return this.delayedFlightsCount; }
+    public int getDelayedFlightsCount() { return this.delayedFlightsCount; }
 
-    public float getCancelledFlightsCount() { return this.cancelledFlightCount; }
+    public int getCancelledFlightsCount() { return this.cancelledFlightCount; }
 }

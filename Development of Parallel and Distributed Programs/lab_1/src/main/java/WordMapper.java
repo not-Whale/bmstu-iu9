@@ -10,12 +10,13 @@ public class WordMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
         String inputString = value.toString();
 
-        inputString = inputString.toLowerCase();
-        inputString = inputString.replaceAll("[—\\s]", " ");
-        inputString = inputString.replaceAll("[-\\s]", " ");
-        inputString = inputString.replaceAll("[\\W&&[^-'а-я]]", " ");
-        inputString = inputString.replaceAll(" +", " ");
-        inputString = inputString.trim();
+        inputString = inputString
+                .toLowerCase()
+                .replaceAll("[—\\s]", " ")
+                .replaceAll("[-\\s]", " ")
+                .replaceAll("[\\W&&[^-'а-я]]", " ")
+                .replaceAll(" +", " ")
+                .trim();
 
         String[] words = inputString.split(" ");
 
