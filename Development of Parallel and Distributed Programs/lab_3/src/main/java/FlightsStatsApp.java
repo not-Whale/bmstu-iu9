@@ -11,14 +11,16 @@ public class FlightsStatsApp {
     private static final String FLIGHTS_FILE_PATH = "flights.csv";
     private static final String AIRPORTS_FILE_PATH = "airports.csv";
     private static final String OUTPUT_FILE_PATH = "output_lab_3";
+    private static final String AIRPORT_CODE_PREFIX = "C";
     private static final String SEPARATOR = ",";
+    private static final String QUOTE = "\"";
 
     public static void main(String[] args) throws Exception {
         SparkConf conf = new SparkConf().setAppName("lab3");
         JavaSparkContext sc = new JavaSparkContext(conf);
 
         JavaPairRDD<Tuple2<String, String>, FlightsDelay> flightsDelays;
-        JavaRDD<String> flightsDataCSV = readFromCSV(sc, FLIGHTS_FILE_PATH, "\"");
+        JavaRDD<String> flightsDataCSV = readFromCSV(sc, FLIGHTS_FILE_PATH, QUOTE);
         flightsDelays = flightsDataCSV.mapToPair(
                 flight -> {
                     String[] flightData = flight.split(SEPARATOR);
@@ -37,7 +39,7 @@ public class FlightsStatsApp {
         );
 
         JavaPairRDD<String, String> airportsDescriptions;
-        JavaRDD<String> airportsDataCSV = readFromCSV(sc, AIRPORTS_FILE_PATH, "C");
+        JavaRDD<String> airportsDataCSV = readFromCSV(sc, AIRPORTS_FILE_PATH, AIRfloat averageDelay;
         airportsDescriptions = airportsDataCSV.mapToPair(
                 airport -> {
                     String[] airportsData = airport.split(SEPARATOR, 2);
