@@ -6,22 +6,26 @@ import org.apache.hadoop.mapreduce.Mapper;
 import java.io.IOException;
 
 public class WordMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
+    private final String SPACE_SEPARATOR = " ";
+    private final int INITIAL_COUNT = 1;
+
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
         String inputString = value.toString();
-
-        inputString = inputString
-                .toLowerCase()
-                .replaceAll("[—\\s]", " ")
-                .replaceAll("[-\\s]", " ")
-                .replaceAll("[\\W&&[^-'а-я]]", " ")
-                .replaceAll(" +", " ")
-                .trim();
-
-        String[] words = inputString.split(" ");
+        String[] words = replaceAndTrim(inputString).split(SPACE_SEPARATOR);
 
         for (String word : words) {
-            context.write(new Text(word), new IntWritable(1));
+            context.write(new Text(word), new IntWritable(INITIAL_COUNT));
         }
+    }
+
+    private String replaceAndTrim(String inputString) {
+        return inputString
+                .toLowerCase()
+                .replaceAll("[—\\s]", SPACE_SEPARATOR)
+                .replaceAll("[-\\s]", SPACE_SEPARATOR)
+                .replaceAll("[\\W&&[^-'а-я]]", SPACE_SEPARATOR)
+                .replaceAll(" +", SPACE_SEPARATOR)
+                .trim();
     }
 }
