@@ -6,12 +6,12 @@ import org.apache.hadoop.mapreduce.Reducer;
 
 public class AirportsReducer extends Reducer<AnFWritableComparable, Text, Text, Text> {
     protected void reduce(AnFWritableComparable key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
-        final Text airportDescription;
-        float averageDelay;
         float minDelay = Float.MAX_VALUE;
         float maxDelay = Float.MIN_VALUE;
         float sumDelay = 0;
+        float averageDelay;
         int numberOfFlights = 0;
+        final Text airportDescription;
 
         Iterator<Text> iterator = values.iterator();
         airportDescription = new Text(iterator.next().toString());
