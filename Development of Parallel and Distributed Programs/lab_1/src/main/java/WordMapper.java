@@ -12,7 +12,7 @@ public class WordMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
         String inputString = value.toString();
         String[] words = replaceAndTrim(inputString).split(SPACE_SEPARATOR);
-        
+
         for (String word : words) {
             context.write(new Text(word), new IntWritable(1));
         }
