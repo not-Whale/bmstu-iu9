@@ -8,14 +8,13 @@ public class AirportsReducer extends Reducer<AnFWritableComparable, Text, Text, 
     protected void reduce(AnFWritableComparable key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
         final Text airportDescription;
         float averageDelay;
-
-        Iterator<Text> iterator = values.iterator();
-        airportDescription = new Text(iterator.next().toString());
-
         float minDelay = Float.MAX_VALUE;
         float maxDelay = Float.MIN_VALUE;
         float sumDelay = 0;
         int numberOfFlights = 0;
+
+        Iterator<Text> iterator = values.iterator();
+        airportDescription = new Text(iterator.next().toString());
 
         while (iterator.hasNext()) {
             String delayStr = iterator.next().toString();
