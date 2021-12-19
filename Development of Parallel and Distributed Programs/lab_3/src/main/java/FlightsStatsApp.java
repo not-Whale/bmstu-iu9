@@ -14,6 +14,7 @@ public class FlightsStatsApp {
     private static final String AIRPORT_CODE_PREFIX = "C";
     private static final String SEPARATOR = ",";
     private static final String QUOTE = "\"";
+    private static final String EMPTY = "";
 
     public static void main(String[] args) throws Exception {
         SparkConf conf = new SparkConf().setAppName("lab3");
@@ -31,7 +32,15 @@ public class FlightsStatsApp {
                 }
         );
 
-        JavaPairRDD<Tuple2<String, 
+        JavaPairRDD<Tuple2<String, String>, DelaysStats> delaysStats;
+        delaysStats = flightsDelays.combineByKey(
+                DelaysStats::new,
+                DelaysStats::addDelay,
+                DelaysStats::add
+        );
+
+        JavaPairRDD<String, String> airportsDescriptions;
+        JavaRDD<String> airportsDataCSV = readFromCSV(sc, AIRPORTS_FILE_PATH, AIRPORT_CODE_PREFIX);
         airportsDescriptions = airportsDataCSV.mapToPair(
                 airport -> {
                     String[] airportsData = airport.split(SEPARATOR, 2);
@@ -56,7 +65,7 @@ public class FlightsStatsApp {
     }
 
     private static String removeQuotes(String data) {
-        return data.replaceAll("\"", "");
+        return data.replaceAll(QUOTE, EMPTY);
     }
 
     private static JavaRDD<String> readFromCSV(JavaSparkContext sc, final String path, final String firstLinePrefix) {

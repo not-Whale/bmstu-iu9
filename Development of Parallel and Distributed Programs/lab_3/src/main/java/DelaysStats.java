@@ -52,11 +52,19 @@ public class DelaysStats implements Serializable {
         );
     }
 
-    public float getMaxDelay() { return this.maxDelay; }
+    public float getMaxDelay() {
+        return this.maxDelay;
+    }
 
-    public int getFlightsNumber() { return this.flightsNumber; }
+    public int getFlightsNumber() {
+        return this.flightsNumber;
+    }
 
-    public int getDelayedFlightsCount() { return this.delayedFlightsCount; }
+    public int getDelayedFlightsCount() {
+        return this.delayedFlightsCount;
+    }
 
-    public int getCancelledFlightsCount() { return this.cancelledFlightCount; }
+    public int getCancelledFlightsCount() {
+        return this.cancelledFlightCount;
+    }
 }
