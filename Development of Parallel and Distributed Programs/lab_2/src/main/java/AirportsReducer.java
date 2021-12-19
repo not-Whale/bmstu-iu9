@@ -19,15 +19,12 @@ public class AirportsReducer extends Reducer<AnFWritableComparable, Text, Text, 
         while (iterator.hasNext()) {
             String delayStr = iterator.next().toString();
             float delay = Float.parseFloat(delayStr);
-
             if (delay > maxDelay) {
                 maxDelay = delay;
             }
-
             if (delay < minDelay) {
                 minDelay = delay;
             }
-
             sumDelay += delay;
             numberOfFlights++;
         }
@@ -44,7 +41,8 @@ public class AirportsReducer extends Reducer<AnFWritableComparable, Text, Text, 
                                     + ", max: "
                                     + maxDelay
                                     + ", average: "
-                                    + averageDelay));
+                                    + averageDelay)
+            );
         }
     }
 }
