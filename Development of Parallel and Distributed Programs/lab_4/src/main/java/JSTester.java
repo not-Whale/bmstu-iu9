@@ -16,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import scala.concurrent.Future;
 
 import java.io.IOException;
+import java.util.List;
 
 public class JSTester extends AllDirectives {
     private static final String ACTOR_SYSTEM_NAME = "js_tester";
