@@ -45,6 +45,11 @@ public class ActorRouter extends AbstractActor {
     }
 
     static class MessageTest {
+        private final String packageID;
+        private final String jsScript;
+        private final String functionName;
+        private final TestBody test;
 
+        
     }
 }
