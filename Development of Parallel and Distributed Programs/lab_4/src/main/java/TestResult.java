@@ -19,6 +19,19 @@ public class TestResult {
         this.receivedResult = receivedResult;
     }
 
+    @Override
+    public String toString() {
+        return "Status: "
+                + status
+                + "\nTest name: "
+                + testName
+                + "\nExpected: "
+                + expectedResult
+                + "\nReceived: "
+                + receivedResult
+                + "\n";
+    }
+
     public String getStatus() {
         return status;
     }
