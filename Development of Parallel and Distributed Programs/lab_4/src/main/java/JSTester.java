@@ -2,7 +2,9 @@ import akka.NotUsed;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
+import akka.http.javadsl.ConnectHttp;
 import akka.http.javadsl.Http;
+import akka.http.javadsl.ServerBinding;
 import akka.http.javadsl.marshallers.jackson.Jackson;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
@@ -17,6 +19,7 @@ import scala.concurrent.Future;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.CompletionStage;
 
 public class JSTester extends AllDirectives {
     private static final String ACTOR_SYSTEM_NAME = "js_tester";
@@ -31,6 +34,12 @@ public class JSTester extends AllDirectives {
         JSTester instance = new JSTester();
         final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow =
                 instance.createRoute(actorRouter).flow(actorSystem, actorMaterializer);
+        final CompletionStage<ServerBinding> binding = http.bindAndHandle(
+                routeFlow,
+                ConnectHttp.toHost("localhost", 8000),
+                actorMaterializer
+        );
+        System.out.println("");
     }
 
     private Route createRoute(ActorRef actorRouter) {
