@@ -11,6 +11,8 @@ import akka.http.javadsl.server.Route;
 import akka.pattern.Patterns;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import scala.concurrent.Future;
 
 import java.io.IOException;
@@ -73,6 +75,13 @@ public class JSTester extends AllDirectives {
         private final String functionName;
         private final List<TestBody> tests;
 
-        
+        @JsonCreator
+        public MessageTestsPackage(
+                @JsonProperty("packageID") String packageID,
+                @JsonProperty("jsScript") String jsScript,
+                @JsonProperty("functionName") String functionName,
+                @JsonProperty("tests") List<TestBody> tests) {
+
+        }
     }
 }
