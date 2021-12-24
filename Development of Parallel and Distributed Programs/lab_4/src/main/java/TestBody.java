@@ -11,6 +11,20 @@ public class TestBody {
             @JsonProperty("testName") String testName,
             @JsonProperty("parameters") Object[] parameters,
             @JsonProperty("expectedResult") String expectedResult) {
-        
+        this.testName = testName;
+        this.parameters = parameters;
+        this.expectedResult = expectedResult;
+    }
+
+    public String getTestName() {
+        return testName;
+    }
+
+    public Object[] getParameters() {
+        return parameters;
+    }
+
+    public String getExpectedResult() {
+        return expectedResult;
     }
 }
