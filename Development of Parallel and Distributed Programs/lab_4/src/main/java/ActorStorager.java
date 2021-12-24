@@ -11,8 +11,22 @@ public class ActorStorager extends AbstractActor {
 
     @Override
     public Receive createReceive() {
-        return null;
+        return receiveBuilder().match(
+                ActorTester.MessageStoreTestResult.class,
+                this::storeResult
+        ).match(
+                JSTester.MessageGetTestPackageResult.class,
+                request -> sender().tell(
+                        new MessageReturnResults(
+                                request.getPackageID(),
+                                results.get(request.getPackageID())
+                        ),
+                        self()
+                )
+        ).build();
     }
+
+    
 
     static class MessageReturnResults {
         private final String packageID;
