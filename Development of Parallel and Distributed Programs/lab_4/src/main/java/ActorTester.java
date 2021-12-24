@@ -1,8 +1,12 @@
 import akka.actor.AbstractActor;
 
+import javax.script.Invocable;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
 public class ActorTester extends AbstractActor {
+    private static final String SCRIPT_ENGINE_NAME = "nashorn";
     private static final String PASSED_STATUS = "PASSED";
     private static final String FAILED_STATUS = "FAILED";
     private static final String CRASHED_STATUS = "CRASHED";
@@ -31,7 +35,7 @@ public class ActorTester extends AbstractActor {
                     message.getTest().getParameters()
             );
             status = isEqual(expected, received) ? PASSED_STATUS : FAILED_STATUS;
-        } catch (ScriptException e) {
+        } catch (ScriptException | NoSuchMethodException e) {
             status = CRASHED_STATUS;
             received = EMPTY_STRING;
         }
@@ -44,8 +48,11 @@ public class ActorTester extends AbstractActor {
         );
     }
 
-    private String runJS(String jsScript, String functionName, Object[] parameters) {
-        
+    private String runJS(String jsScript, String functionName, Object[] parameters) throws ScriptException, NoSuchMethodException {
+        ScriptEngine engine = new ScriptEngineManager().getEngineByName(SCRIPT_ENGINE_NAME);
+        engine.eval(jsScript);
+        Invocable invocable = (Invocable) engine;
+        return invocable.invokeFunction(functionName, parameters).toString();
     }
 
     private static boolean isEqual(String expected, String received) {
