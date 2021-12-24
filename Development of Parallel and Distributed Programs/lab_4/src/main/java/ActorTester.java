@@ -1,9 +1,12 @@
 import akka.actor.AbstractActor;
 
+import javax.script.ScriptException;
+
 public class ActorTester extends AbstractActor {
     private static final String PASSED_STATUS = "PASSED";
     private static final String FAILED_STATUS = "FAILED";
     private static final String CRASHED_STATUS = "CRASHED";
+    private static final String EMPTY_STRING = "";
 
     @Override
     public Receive createReceive() {
@@ -22,8 +25,31 @@ public class ActorTester extends AbstractActor {
         String received;
 
         try {
-            received = execute
+            received = runJS(
+                    message.getJsScript(),
+                    message.getFunctionName(),
+                    message.getTest().getParameters()
+            );
+            status = isEqual(expected, received) ? PASSED_STATUS : FAILED_STATUS;
+        } catch (ScriptException e) {
+            status = CRASHED_STATUS;
+            received = EMPTY_STRING;
         }
+        return new MessageStoreTestResult(
+                message.getPackageID(),
+                status,
+                message.getTest().getTestName(),
+                expected,
+                received
+        );
+    }
+
+    private String runJS(String jsScript, String functionName, Object[] parameters) {
+        
+    }
+
+    private static boolean isEqual(String expected, String received) {
+        return expected.equals(received);
     }
 
     static class MessageStoreTestResult {
