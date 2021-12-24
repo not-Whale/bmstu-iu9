@@ -29,13 +29,27 @@ public class JSTester extends AllDirectives {
     }
 
     private Route createRoute(ActorRef actorRouter) {
-        return route (
+        return route(
                 path("test", () ->
                         route (
                                 post(() ->
-                                        entity(Jackson.unmarshaller())
-                        )
-                        )
-        )
+                                        entity(Jackson.unmarshaller(MessageTestsPachage.class), message -> {
+                                            actorRouter.tell(message, ActorRef.noSender());
+                                            return complete("Test started!");
+                                        }))
+                        ));
+                path("result", () ->
+                        route(
+                                get(() ->
+                                        parameter("packageId", (id) -> {
+                                            Future<Object> result = Patterns.ask(
+                                                    actorRouter,
+                                                    new MessageGetTestPackageResult(id),
+                                                    5000
+                                            );
+                                            return completeOKWithFuture(result, Jackson.marshaller());
+                                        }))
+                        ));
+    )
     }
 }
