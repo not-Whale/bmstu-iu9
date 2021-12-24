@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ActorRouter extends AbstractActor {
-    private static final int TESTERS_AMOUNT = 10;
+    private static final int TESTERS_AMOUNT = 5;
     private final ActorRef storager;
     private final Router router;
 
