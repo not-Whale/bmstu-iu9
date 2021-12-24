@@ -39,7 +39,8 @@ public class JSTester extends AllDirectives {
                 ConnectHttp.toHost("localhost", 8000),
                 actorMaterializer
         );
-        System.out.println("");
+        System.out.println("Server online at http://localhost:8080/\\nPress RETURN to stop...");
+        
     }
 
     private Route createRoute(ActorRef actorRouter) {
