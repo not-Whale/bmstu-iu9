@@ -7,7 +7,23 @@ public class ActorTester extends AbstractActor {
 
     @Override
     public Receive createReceive() {
-        return null;
+        return receiveBuilder().match(
+                ActorRouter.MessageTest.class,
+                message -> sender().tell(
+                        runTest(message),
+                        self()
+                )
+        ).build();
+    }
+
+    private MessageStoreTestResult runTest(ActorRouter.MessageTest message) {
+        String status;
+        String expected = message.getTest().getExpectedResult();
+        String received;
+
+        try {
+            received = execute
+        }
     }
 
     static class MessageStoreTestResult {
@@ -28,7 +44,7 @@ public class ActorTester extends AbstractActor {
             return packageID;
         }
 
-        public TestResult getResult() {
+        public TestResult getTestResult() {
             return result;
         }
 
@@ -37,7 +53,7 @@ public class ActorTester extends AbstractActor {
             return "Package ID: "
                     + getPackageID()
                     + "\nResult: "
-                    + getResult();
+                    + getTestResult();
         }
     }
 }
