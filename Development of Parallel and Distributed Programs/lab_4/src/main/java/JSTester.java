@@ -28,6 +28,13 @@ public class JSTester extends AllDirectives {
     }
 
     private Route createRoute(ActorRef actorRouter) {
-        return
+        return route (
+                path("test", () ->
+                        route (
+                                post(() ->
+                                        
+                        )
+                        )
+        )
     }
 }
