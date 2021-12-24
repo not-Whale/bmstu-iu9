@@ -8,8 +8,10 @@ import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 import akka.http.javadsl.server.AllDirectives;
 import akka.http.javadsl.server.Route;
+import akka.pattern.Patterns;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
+import scala.concurrent.Future;
 
 import java.io.IOException;
 
@@ -37,7 +39,7 @@ public class JSTester extends AllDirectives {
                                             actorRouter.tell(message, ActorRef.noSender());
                                             return complete("Test started!");
                                         }))
-                        ));
+                        )),
                 path("result", () ->
                         route(
                                 get(() ->
@@ -49,7 +51,7 @@ public class JSTester extends AllDirectives {
                                             );
                                             return completeOKWithFuture(result, Jackson.marshaller());
                                         }))
-                        ));
-    )
+                        ))
+    );
     }
 }
