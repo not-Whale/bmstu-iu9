@@ -1,6 +1,7 @@
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
+import akka.http.javadsl.Http;
 
 import java.io.IOException;
 
@@ -11,5 +12,7 @@ public class JSTester {
         ActorSystem actorSystem = ActorSystem.create(ACTOR_SYSTEM_NAME);
         ActorRef actorRouter = actorSystem.actorOf(Props.create(ActorRouter.class));
 
+        final Http http = Http.get(actorSystem);
+        final 
     }
 }
