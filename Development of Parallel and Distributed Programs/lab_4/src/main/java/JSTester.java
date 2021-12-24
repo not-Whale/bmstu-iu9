@@ -40,7 +40,10 @@ public class JSTester extends AllDirectives {
                 actorMaterializer
         );
         System.out.println("Server online at http://localhost:8080/\\nPress RETURN to stop...");
-        
+        System.in.read();
+        binding
+                .thenCompose(ServerBinding::unbind)
+                .thenAccept(unbound -> actorSystem.terminate());
     }
 
     private Route createRoute(ActorRef actorRouter) {
