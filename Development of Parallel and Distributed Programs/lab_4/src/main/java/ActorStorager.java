@@ -2,9 +2,7 @@ import akka.actor.AbstractActor;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ActorStorager extends AbstractActor {
     private final Map<String, List<TestResult>> results = new HashMap<>();
@@ -26,7 +24,20 @@ public class ActorStorager extends AbstractActor {
         ).build();
     }
 
-    
+    private void storeResult(ActorTester.MessageStoreTestResult message) {
+        String packageID = message.getPackageID();
+        if (results.containsKey(packageID)) {
+            results.get(packageID).add(message.getTestResult());
+        } else {
+            results.put(
+                    message.getPackageID(),
+                    new ArrayList<>(
+                            Collections.singleton(message.getTestResult())
+                    )
+            );
+        }
+        System.out.println("Received message: " + message);
+    }
 
     static class MessageReturnResults {
         private final String packageID;
