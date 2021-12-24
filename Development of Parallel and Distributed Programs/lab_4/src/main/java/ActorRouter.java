@@ -5,6 +5,8 @@ import akka.routing.ActorRefRoutee;
 import akka.routing.RoundRobinRoutingLogic;
 import akka.routing.Routee;
 import akka.routing.Router;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +52,32 @@ public class ActorRouter extends AbstractActor {
         private final String functionName;
         private final TestBody test;
 
-        
+        @JsonCreator
+        public MessageTest(
+                @JsonProperty("packageID") String packageID,
+                @JsonProperty("jsScript") String jsScript,
+                @JsonProperty("functionName") String functionName,
+                @JsonProperty("test") TestBody test) {
+            this.packageID = packageID;
+            this.jsScript = jsScript;
+            this.functionName = functionName;
+            this.test = test;
+        }
+
+        public String getPackageID() {
+            return packageID;
+        }
+
+        public String getJsScript() {
+            return jsScript;
+        }
+
+        public String getFunctionName() {
+            return functionName;
+        }
+
+        public TestBody getTest() {
+            return test;
+        }
     }
 }
