@@ -33,7 +33,7 @@ public class ActorTester extends AbstractActor {
         }
 
         @Override
-        public toString() {
+        public String toString() {
             return "Package ID: "
                     + getPackageID()
                     + "\nResult: "
