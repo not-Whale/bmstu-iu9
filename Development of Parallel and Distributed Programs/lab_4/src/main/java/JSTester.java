@@ -68,6 +68,11 @@ public class JSTester extends AllDirectives {
     }
 
     static class MessageTestsPackage {
-        private final String pachageID;
+        private final String packageID;
+        private final String jsScript;
+        private final String functionName;
+        private final List<TestBody> tests;
+
+        
     }
 }
