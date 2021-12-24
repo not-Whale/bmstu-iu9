@@ -5,4 +5,6 @@ public class ActorTester extends AbstractActor {
     public Receive createReceive() {
         return null;
     }
+
+    
 }
