@@ -1,6 +1,7 @@
 import akka.NotUsed;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
+import akka.actor.Props;
 import akka.http.javadsl.ConnectHttp;
 import akka.http.javadsl.Http;
 import akka.http.javadsl.ServerBinding;
@@ -39,8 +40,9 @@ public class ResponseTimeAnalyser {
 
         final Http http = Http.get(actorSystem);
         final ActorMaterializer actorMaterializer = ActorMaterializer.create(actorSystem);
+        ActorRef actorCache = actorSystem.actorOf(Props.create(ActorCache.class));
 
-        final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = flowHttpRequest(actorMaterializer, actorSystem);
+        final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = flowHttpRequest(actorMaterializer, actorCache);
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
                 ConnectHttp.toHost("localhost", 8080),
@@ -50,7 +52,7 @@ public class ResponseTimeAnalyser {
         System.in.read();
         binding
                 .thenCompose(ServerBinding::unbind)
-                .thenAccept(unbound -> system.terminate()); // and shutdown when done
+                .thenAccept(unbound -> actorSystem.terminate()); // and shutdown when done
     }
 
     private static Flow<HttpRequest, HttpResponse, NotUsed> flowHttpRequest(ActorMaterializer actorMaterializer, ActorRef actorSystem) {
@@ -92,10 +94,10 @@ public class ResponseTimeAnalyser {
                             }))
                 .map(res -> {
                     actorSystem.tell(
-                            new MessageCacheResult(res.firts(), res.second()),
+                            new MessageCacheResult(res.first(), res.second()),
                             ActorRef.noSender()
                     );
-                    return HttpResponse.create().withEntity(res.firts() + ": " + res.second().toString());
+                    return HttpResponse.create().withEntity(res.first() + ": " + res.second().toString());
                 });
     }
 
