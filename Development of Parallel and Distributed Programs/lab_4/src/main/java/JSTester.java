@@ -26,7 +26,7 @@ public class JSTester extends AllDirectives {
 
     public static void main(String[] args) throws IOException {
         ActorSystem actorSystem = ActorSystem.create(ACTOR_SYSTEM_NAME);
-        ActorRef actorRouter = actorSystem.actorOf(Props.create(ActorRouter.class, actorSystem));
+        ActorRef actorRouter = actorSystem.actorOf(Props.create(ActorRouter.class));
 
         final Http http = Http.get(actorSystem);
         final ActorMaterializer actorMaterializer = ActorMaterializer.create(actorSystem);
