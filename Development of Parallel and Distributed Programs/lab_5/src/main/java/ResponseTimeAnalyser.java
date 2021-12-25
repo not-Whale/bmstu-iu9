@@ -53,31 +53,6 @@ public class ResponseTimeAnalyser {
     }
 
     private static Flow<HttpRequest, HttpResponse, NotUsed> flowHttpRequest(ActorMaterializer actorMaterializer, ActorRef actorSystem) {
-        return Flow.of(HttpRequest.class).map(
-                req -> {
-                    Query query = req.getUri().query();
-                    String url = query.get(QUERY_PARAMETER_URL).get();
-                    int count = Integer.parseInt(query.get(QUERY_PARAMETER_COUNT).get());
-                    return new Pair<>(url, count);
-                }).mapAsync(1, req -> {
-                    Patterns.ask(actorSystem, new MessageGetResult(req.first()), java.time.Duration.ofMillis(5000))
-                            .thenCompose(result -> {
-                                if (((Optional<Long>)result).isPresent()) {
-                                    return CompletableFuture.completedFuture(new Pair<>(request.first(), ((Optional<Long>) result).get()));
-                                } else {
-                                    Sink<Integer, CompletionStage<Long>> fold = Sink.fold(0L, (Function2<Long, Integer, Long>) Long::sum);
-                                    Sink<Pair<String, Integer>, CompletionStage<Long>> sink = Flow.<Pair<String, Integer>>create().mapConcat(r -> new ArrayList<>((Collections.nCopies(r.second(), r.first())))).mapAsync(req.second(), url -> {
-                                                long start = System.currentTimeMillis();
-                                                Request request1 = Dsl.get(url).build();
-                                                CompletableFuture<Response> whenResponse = Dsl.asyncHttpClient().executeRequest(request1).toCompletableFuture();
-                                                return whenResponse.thenCompose(response -> {
-                                                    int duration = (int) (System.currentTimeMillis() - start);
-                                                    return CompletableFuture.completedFuture(duration);
-                                                });
-                                            }).toMat(fold, Keep.right());
-                                    return Source.from(Collections.singletonList(req)).toMat(sink, Keep.right()).run(actorMaterializer).thenApply(sum -> new Pair<>(req.first(), sum / req.second()));
-                                }}
-                            )
-                })
+        
     }
 }
