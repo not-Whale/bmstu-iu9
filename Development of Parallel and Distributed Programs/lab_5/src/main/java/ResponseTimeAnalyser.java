@@ -1,34 +1,60 @@
 import akka.NotUsed;
+import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.http.javadsl.ConnectHttp;
 import akka.http.javadsl.Http;
 import akka.http.javadsl.ServerBinding;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
+import akka.http.javadsl.model.Query;
+import akka.japi.Pair;
+import akka.pattern.Patterns;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
 
 import java.io.IOException;
 import java.util.concurrent.CompletionStage;
+import java.util.regex.Pattern;
 
 public class ResponseTimeAnalyser {
-    private static final String
+    private static final String ACTOR_SYSTEM_NAME = "response time analyser";
+    private static final String QUERY_PARAMETER_URL = "testUrl";
+    private static final String QUERY_PARAMETER_COUNT = "count";
 
     public static void main(String[] args) throws IOException {
         System.out.println("start!");
-        ActorSystem system = ActorSystem.create("routes");
-        final Http http = Http.get(system);
-        final ActorMaterializer materializer = ActorMaterializer.create(system);
-        final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = <вызов метода которому передаем Http, ActorSystem и ActorMaterializer>;
+        ActorSystem actorSystem = ActorSystem.create(ACTOR_SYSTEM_NAME);
+
+        final Http http = Http.get(actorSystem);
+        final ActorMaterializer actorMaterializer = ActorMaterializer.create(actorSystem);
+
+        final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = flowHttpRequest(actorMaterializer, actorSystem);
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
                 ConnectHttp.toHost("localhost", 8080),
-                materializer
+                actorMaterializer
         );
         System.out.println("Server online at http://localhost:8080/\nPress RETURN to stop...");
         System.in.read();
         binding
                 .thenCompose(ServerBinding::unbind)
                 .thenAccept(unbound -> system.terminate()); // and shutdown when done
+    }
+
+    private static Flow<HttpRequest, HttpResponse, NotUsed> flowHttpRequest(ActorMaterializer actorMaterializer, ActorRef actorSystem) {
+        return Flow.of(HttpRequest.class).map(
+                request -> {
+                    Query query = request.getUri().query();
+                    String url = query.get(QUERY_PARAMETER_URL).get();
+                    int count = Integer.parseInt(query.get(QUERY_PARAMETER_COUNT).get());
+                    return new Pair<>(url, count);
+                }).mapAsync(
+                        1, request -> {
+                    Patterns.ask(
+                            actorSystem,
+                            new MessageGetResult(request.first()),
+                            java.time.Duration.ofMillis(5000)).
+                }
+        )
     }
 }
