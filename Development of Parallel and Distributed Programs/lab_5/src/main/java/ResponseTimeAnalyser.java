@@ -123,5 +123,9 @@ public class ResponseTimeAnalyser {
         public String getUrl() {
             return url;
         }
+
+        public long getResponseTime() {
+            return responseTime;
+        }
     }
 }
