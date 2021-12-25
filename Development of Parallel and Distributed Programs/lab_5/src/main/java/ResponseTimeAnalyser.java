@@ -55,7 +55,13 @@ public class ResponseTimeAnalyser {
     private static Flow<HttpRequest, HttpResponse, NotUsed> flowHttpRequest(ActorMaterializer actorMaterializer, ActorRef actorSystem) {
         return Flow.of(HttpRequest.class)
                 .map(req -> {
-                    
+                    Query query = req.getUri().query();
+                    String url = query.get(QUERY_PARAMETER_URL).get();
+                    int count = Integer.parseInt(query.get(QUERY_PARAMETER_COUNT).get());
+                    return new Pair<>(url, count);
+                })
+                .mapAsync(1, req -> {
+                    Patterns.ask()
                 })
     }
 }
