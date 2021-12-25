@@ -8,13 +8,16 @@ import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 import akka.http.javadsl.model.Query;
 import akka.japi.Pair;
+import akka.japi.function.Function2;
 import akka.pattern.Patterns;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
+import akka.stream.javadsl.Sink;
 
 import java.io.IOException;
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
-import java.util.regex.Pattern;
 
 public class ResponseTimeAnalyser {
     private static final String ACTOR_SYSTEM_NAME = "response time analyser";
@@ -56,7 +59,11 @@ public class ResponseTimeAnalyser {
                             java.time.Duration.ofMillis(5000)
                     ).thenCompose(
                             result -> {
-                                
+                                if (((Optional<Long>)result).isPresent()) {
+                                    return CompletableFuture.completedFuture(new Pair<>(request.first(), ((Optional<Long>) result).get()));
+                                } else {
+                                    Sink<Integer, CompletionStage<Long>> fold = Sink.fold(0L, (Function2<Long, Integer, Long>) Long::)
+                                }
                             }
 
                     )
