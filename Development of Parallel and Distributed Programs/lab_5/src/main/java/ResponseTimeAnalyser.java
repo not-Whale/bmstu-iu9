@@ -19,6 +19,7 @@ import akka.stream.javadsl.Source;
 import org.asynchttpclient.Dsl;
 import org.asynchttpclient.Request;
 import org.asynchttpclient.Response;
+import scala.Int;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -61,7 +62,41 @@ public class ResponseTimeAnalyser {
                     return new Pair<>(url, count);
                 })
                 .mapAsync(1, req -> {
-                    Patterns.ask()
-                })
+                    Patterns.ask(
+                            actorSystem,
+                            new MessageGetResult(req.first()),
+                            java.time.Duration.ofMillis(5000))
+                            .thenCompose(res -> {
+                                if (((Optional<Long>) res).isPresent()) {
+                                    return CompletableFuture.completedFuture(new Pair<>(req.first(), ((Optional<Long>) res).get()));
+                                } else {
+                                    Sink<Integer, CompletionStage<Long>> fold = Sink.fold(0L, (Function2<Long, Integer, Long>) Long::sum);
+                                    Sink<Pair<String, Integer>, CompletionStage<Long>> sink = Flow
+                                            .<Pair<String, Integer>>create()
+                                            .mapConcat(r -> new ArrayList<>(Collections.nCopies(r.second(), r.first())))
+                                            .mapAsync(req.second(), url -> {
+                                                long start = System.currentTimeMillis();
+                                                Request request = Dsl.get(url).build();
+                                                CompletableFuture<Response> whenResponse = Dsl.asyncHttpClient().executeRequest(request).toCompletableFuture();
+                                                return whenResponse.thenCompose(response -> {
+                                                    int duration = (int) (System.currentTimeMillis() - start);
+                                                    return CompletableFuture.completedFuture(duration);
+                                                });
+                                            })
+                                            .toMat(fold, Keep.right());
+                                    return Source.from(Collections.singletonList(req))
+                                            .toMat(sink, Keep.right())
+                                            .run(actorMaterializer)
+                                            .thenApply(sum -> new Pair<>(req.first(), sum / req.second()));
+                                }
+                            })
+                    .map(res -> {
+                        actorSystem.tell(
+                                new MessageCacheResult(res.firts(), res.second()),
+                                ActorRef.noSender()
+                        );
+                        return HttpResponse.create().withEntity(res.firts() + ": " + res.second().toString());
+                    });
+                });
     }
 }
