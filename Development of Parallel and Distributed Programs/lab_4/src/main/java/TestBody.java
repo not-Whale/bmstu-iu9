@@ -9,7 +9,7 @@ public class TestBody {
     @JsonCreator
     public TestBody(
             @JsonProperty("testName") String testName,
-            @JsonProperty("parameters") Object[] parameters,
+            @JsonProperty("params") Object[] parameters,
             @JsonProperty("expectedResult") String expectedResult) {
         this.testName = testName;
         this.parameters = parameters;
