@@ -14,7 +14,13 @@ import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
 import akka.stream.javadsl.Sink;
 
+import org.asynchttpclient.Dsl;
+import org.asynchttpclient.Request;
+import org.asynchttpclient.Response;
+
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
@@ -62,7 +68,15 @@ public class ResponseTimeAnalyser {
                                 if (((Optional<Long>)result).isPresent()) {
                                     return CompletableFuture.completedFuture(new Pair<>(request.first(), ((Optional<Long>) result).get()));
                                 } else {
-                                    Sink<Integer, CompletionStage<Long>> fold = Sink.fold(0L, (Function2<Long, Integer, Long>) Long::)
+                                    Sink<Integer, CompletionStage<Long>> fold = Sink.fold(0L, (Function2<Long, Integer, Long>) Long::sum);
+                                    Sink<Pair<String, Integer>, CompletionStage<Long>> sink = Flow
+                                            .<Pair<String, Integer>>create()
+                                            .mapConcat(r -> new ArrayList<>((Collections.nCopies(r.second(), r.first()))))
+                                            .mapAsync(request.second(), url -> {
+                                                long start = System.currentTimeMillis();
+                                                Request request1 = Dsl.get(url).build();
+                                                CompletableFuture<Response> whenResponse = Dsl.asyncHttpClient().executeRequest(request1).to
+                                            })
                                 }
                             }
 
