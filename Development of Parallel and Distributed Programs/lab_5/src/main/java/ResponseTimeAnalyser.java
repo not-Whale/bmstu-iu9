@@ -111,5 +111,7 @@ public class ResponseTimeAnalyser {
         }
     }
 
-    
+    static class MessageCacheResult {
+        
+    }
 }
