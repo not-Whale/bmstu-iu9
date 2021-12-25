@@ -29,9 +29,12 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
 public class ResponseTimeAnalyser {
-    private static final String ACTOR_SYSTEM_NAME = "response time analyser";
+    private static final String ACTOR_SYSTEM_NAME = "routes";
     private static final String QUERY_PARAMETER_URL = "testUrl";
     private static final String QUERY_PARAMETER_COUNT = "count";
+    private static final long FOLD_ZERO = 0L;
+    private static final int TIMEOUT = 6000;
+    private static final int PARALLELISM_MODE = 1;
 
     public static void main(String[] args) throws IOException {
         System.out.println("start!");
@@ -62,19 +65,19 @@ public class ResponseTimeAnalyser {
                     int count = Integer.parseInt(query.get(QUERY_PARAMETER_COUNT).get());
                     return new Pair<>(url, count);
                 })
-                .mapAsync(1, req ->
+                .mapAsync(PARALLELISM_MODE, req ->
                     Patterns.ask(
                             actorSystem,
                             new MessageGetResult(req.first()),
-                            java.time.Duration.ofMillis(5000))
+                            java.time.Duration.ofMillis(TIMEOUT))
                             .thenCompose(res -> {
                                 if (((Optional<Long>) res).isPresent()) {
                                     return CompletableFuture.completedFuture(new Pair<>(req.first(), ((Optional<Long>) res).get()));
                                 } else {
-                                    Sink<Integer, CompletionStage<Long>> fold = Sink.fold(0L, (Function2<Long, Integer, Long>) Long::sum);
+                                    Sink<Integer, CompletionStage<Long>> fold = Sink.fold(FOLD_ZERO, (Function2<Long, Integer, Long>) Long::sum);
                                     Sink<Pair<String, Integer>, CompletionStage<Long>> sink = Flow
                                             .<Pair<String, Integer>>create()
-                                            .mapConcat(r -> new ArrayList<>(Collections.nCopies(r.second(), r.first())))
+                                            .mapConcat(curRes -> new ArrayList<>(Collections.nCopies(curRes.second(), curRes.first())))
                                             .mapAsync(req.second(), url -> {
                                                 long start = System.currentTimeMillis();
                                                 Request request = Dsl.get(url).build();
