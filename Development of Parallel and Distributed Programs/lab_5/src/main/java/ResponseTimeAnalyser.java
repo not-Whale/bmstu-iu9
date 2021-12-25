@@ -53,6 +53,9 @@ public class ResponseTimeAnalyser {
     }
 
     private static Flow<HttpRequest, HttpResponse, NotUsed> flowHttpRequest(ActorMaterializer actorMaterializer, ActorRef actorSystem) {
-        
+        return Flow.of(HttpRequest.class)
+                .map(req -> {
+                    
+                })
     }
 }
