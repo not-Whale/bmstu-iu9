@@ -1,5 +1,6 @@
 import akka.actor.AbstractActor;
 import akka.actor.ActorRef;
+import akka.actor.ActorSystem;
 import akka.actor.Props;
 import akka.routing.ActorRefRoutee;
 import akka.routing.RoundRobinRoutingLogic;
@@ -16,11 +17,11 @@ public class ActorRouter extends AbstractActor {
     private final ActorRef storager;
     private final Router router;
 
-    {
-        storager = getContext().actorOf(Props.create(ActorStorager.class));
+    public ActorRouter(ActorSystem actorSystem) {
+        storager = actorSystem.actorOf(Props.create(ActorStorager.class));
         List<Routee> routeeList = new ArrayList<>();
         for (int i = 0; i < TESTERS_AMOUNT; i++) {
-            ActorRef actorTester = getContext().actorOf(Props.create(ActorTester.class));
+            ActorRef actorTester = actorSystem.actorOf(Props.create(ActorTester.class));
             getContext().watch(actorTester);
             routeeList.add(new ActorRefRoutee(actorTester));
         }

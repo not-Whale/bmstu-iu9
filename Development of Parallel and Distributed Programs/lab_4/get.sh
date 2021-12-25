@@ -1,3 +1,3 @@
 #!/bin/bash
 
-curl http://localhost:8080?packageId=11
+curl http://localhost:8080/result?packageId=11
