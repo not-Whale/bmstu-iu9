@@ -20,7 +20,6 @@ import akka.stream.javadsl.Source;
 import org.asynchttpclient.Dsl;
 import org.asynchttpclient.Request;
 import org.asynchttpclient.Response;
-import scala.Int;
 
 import java.io.IOException;
 import java.util.ArrayList;
