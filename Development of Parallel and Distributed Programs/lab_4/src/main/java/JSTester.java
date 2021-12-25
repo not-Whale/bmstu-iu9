@@ -36,7 +36,7 @@ public class JSTester extends AllDirectives {
                 instance.createRoute(actorRouter).flow(actorSystem, actorMaterializer);
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
-                ConnectHttp.toHost("localhost", 8000),
+                ConnectHttp.toHost("localhost", 8080),
                 actorMaterializer
         );
         System.out.println("Server online at http://localhost:8080/\nPress RETURN to stop...");
