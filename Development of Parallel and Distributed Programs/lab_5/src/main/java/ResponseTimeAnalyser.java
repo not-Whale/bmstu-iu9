@@ -98,4 +98,16 @@ public class ResponseTimeAnalyser {
                     return HttpResponse.create().withEntity(res.firts() + ": " + res.second().toString());
                 });
     }
+
+    static class MessageGetResult {
+        private final String url;
+
+        public MessageGetResult(String url) {
+            this.url = url;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+    }
 }
