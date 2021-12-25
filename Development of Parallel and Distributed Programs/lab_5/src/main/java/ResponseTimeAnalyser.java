@@ -53,7 +53,13 @@ public class ResponseTimeAnalyser {
                     Patterns.ask(
                             actorSystem,
                             new MessageGetResult(request.first()),
-                            java.time.Duration.ofMillis(5000)).
+                            java.time.Duration.ofMillis(5000)
+                    ).thenCompose(
+                            result -> {
+                                
+                            }
+
+                    )
                 }
         )
     }
