@@ -12,8 +12,10 @@ import akka.japi.function.Function2;
 import akka.pattern.Patterns;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
+import akka.stream.javadsl.Keep;
 import akka.stream.javadsl.Sink;
 
+import akka.stream.javadsl.Source;
 import org.asynchttpclient.Dsl;
 import org.asynchttpclient.Request;
 import org.asynchttpclient.Response;
@@ -52,16 +54,16 @@ public class ResponseTimeAnalyser {
 
     private static Flow<HttpRequest, HttpResponse, NotUsed> flowHttpRequest(ActorMaterializer actorMaterializer, ActorRef actorSystem) {
         return Flow.of(HttpRequest.class).map(
-                request -> {
-                    Query query = request.getUri().query();
+                req -> {
+                    Query query = req.getUri().query();
                     String url = query.get(QUERY_PARAMETER_URL).get();
                     int count = Integer.parseInt(query.get(QUERY_PARAMETER_COUNT).get());
                     return new Pair<>(url, count);
                 }).mapAsync(
-                        1, request -> {
+                        1, req -> {
                     Patterns.ask(
                             actorSystem,
-                            new MessageGetResult(request.first()),
+                            new MessageGetResult(req.first()),
                             java.time.Duration.ofMillis(5000)
                     ).thenCompose(
                             result -> {
@@ -72,16 +74,20 @@ public class ResponseTimeAnalyser {
                                     Sink<Pair<String, Integer>, CompletionStage<Long>> sink = Flow
                                             .<Pair<String, Integer>>create()
                                             .mapConcat(r -> new ArrayList<>((Collections.nCopies(r.second(), r.first()))))
-                                            .mapAsync(request.second(), url -> {
+                                            .mapAsync(req.second(), url -> {
                                                 long start = System.currentTimeMillis();
                                                 Request request1 = Dsl.get(url).build();
-                                                CompletableFuture<Response> whenResponse = Dsl.asyncHttpClient().executeRequest(request1).to
-                                            })
+                                                CompletableFuture<Response> whenResponse = Dsl.asyncHttpClient().executeRequest(request1).toCompletableFuture();
+                                                return whenResponse.thenCompose(response -> {
+                                                    int duration = (int) (System.currentTimeMillis() - start);
+                                                    return CompletableFuture.completedFuture(duration);
+                                                });
+                                            }).toMat(fold, Keep.right());
+                                    return Source.from(Collections.singletonList(req))
+                                            .toMat(sink, Keep.right())
+                                            .run(actorMaterializer)
+                                            .thenApply(sum -> new Pair<>(req.first(), sum / req.second()));
                                 }
-                            }
-
-                    )
-                }
-        )
+                            })})
     }
 }
