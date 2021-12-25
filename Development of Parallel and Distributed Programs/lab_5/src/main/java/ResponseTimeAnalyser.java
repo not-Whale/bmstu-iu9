@@ -61,7 +61,7 @@ public class ResponseTimeAnalyser {
                     int count = Integer.parseInt(query.get(QUERY_PARAMETER_COUNT).get());
                     return new Pair<>(url, count);
                 })
-                .mapAsync(1, req -> {
+                .mapAsync(1, req ->
                     Patterns.ask(
                             actorSystem,
                             new MessageGetResult(req.first()),
@@ -89,14 +89,13 @@ public class ResponseTimeAnalyser {
                                             .run(actorMaterializer)
                                             .thenApply(sum -> new Pair<>(req.first(), sum / req.second()));
                                 }
-                            })
-                    .map(res -> {
-                        actorSystem.tell(
-                                new MessageCacheResult(res.firts(), res.second()),
-                                ActorRef.noSender()
-                        );
-                        return HttpResponse.create().withEntity(res.firts() + ": " + res.second().toString());
-                    });
+                            }))
+                .map(res -> {
+                    actorSystem.tell(
+                            new MessageCacheResult(res.firts(), res.second()),
+                            ActorRef.noSender()
+                    );
+                    return HttpResponse.create().withEntity(res.firts() + ": " + res.second().toString());
                 });
     }
 }
