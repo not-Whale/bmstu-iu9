@@ -91,7 +91,7 @@ public class JSTester extends AllDirectives {
 
         @JsonCreator
         public MessageTestsPackage(
-                @JsonProperty("packageID") String packageID,
+                @JsonProperty("packageId") String packageID,
                 @JsonProperty("jsScript") String jsScript,
                 @JsonProperty("functionName") String functionName,
                 @JsonProperty("tests") List<TestBody> tests) {
