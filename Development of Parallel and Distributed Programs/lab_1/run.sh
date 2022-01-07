@@ -14,8 +14,6 @@ hdfs namenome -format
 start-dfs.sh
 start-yarn.sh
 
-hadoop jar ~/hadoop-2.10.1/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.10.1.jar pi 2 5
-
 hdfs dfs -rmr hdfs://localhost:9000/user/lopata/output_lab_1
 
 mvn package
