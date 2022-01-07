@@ -9,7 +9,7 @@ rm -rf ~/hdata/namenode
 mkdir ~/hdata/datanode
 mkdir ~/hdata/namenode
 
-hdfs namenome -format
+hdfs namenode -format
 
 start-dfs.sh
 start-yarn.sh
