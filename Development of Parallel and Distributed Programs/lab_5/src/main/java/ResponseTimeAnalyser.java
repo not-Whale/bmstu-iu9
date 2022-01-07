@@ -37,7 +37,6 @@ public class ResponseTimeAnalyser {
     private static final int PARALLELISM_MODE = 1;
 
     public static void main(String[] args) throws IOException {
-        System.out.println("start!");
         ActorSystem actorSystem = ActorSystem.create(ACTOR_SYSTEM_NAME);
 
         final Http http = Http.get(actorSystem);
