@@ -16,6 +16,8 @@ start-yarn.sh
 
 hdfs dfs -rmr hdfs://localhost:9000/user/lopata/output_lab_1
 
+hadoop jar ~/hadoop-2.10.1/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.10.1.jar pi 2 5
+
 mvn package
 hadoop fs -copyFromLocal /src/resourses/warandpeace1.txt
 export HADOOP_CLASSPATH=target/hadoop-examples-1.0-SNAPSHOT.jar
