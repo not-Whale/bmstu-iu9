@@ -15,6 +15,9 @@ start-dfs.sh
 start-yarn.sh
 
 hdfs dfs -rmr hdfs://localhost:9000/user/lopata/output_lab_2
+
+hadoop jar ~/hadoop-2.10.1/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.10.1.jar pi 2 5
+
 rm -rf output_lab_2
 
 mvn package
