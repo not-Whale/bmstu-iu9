@@ -23,7 +23,5 @@ rm -rf output_lab_3
 mvn package
 hadoop fs -copyFromLocal src/main/resourses/airports.csv
 hadoop fs -copyFromLocal src/main/resourses/flights.csv
-export HADOOP_CLASSPATH=target/spark-examples-1.0-SNAPSHOT.jar
 spark-submit --class FlightsStatsApp --master yarn-client --num-executors 3 target/spark-examples-1.0-SNAPSHOT.jar
-hadoop FlightsStatsApp flights.csv airports.csv output_lab_3
 hadoop fs -copyToLocal output_lab_3
