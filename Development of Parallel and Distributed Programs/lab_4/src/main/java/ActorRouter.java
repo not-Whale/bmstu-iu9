@@ -18,7 +18,7 @@ public class ActorRouter extends AbstractActor {
     private final Router router;
 
     public ActorRouter() {
-        storager = getContext().actorOf(Props.create(ActorStorager.class));
+        storager = getContext().actorOf(Props.create(ActorStorage.class));
         List<Routee> routeeList = new ArrayList<>();
         for (int i = 0; i < TESTERS_AMOUNT; i++) {
             ActorRef actorTester = getContext().actorOf(Props.create(ActorTester.class));

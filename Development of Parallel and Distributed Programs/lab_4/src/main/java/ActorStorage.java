@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.*;
 
-public class ActorStorager extends AbstractActor {
+public class ActorStorage extends AbstractActor {
     private final Map<String, List<TestResult>> results = new HashMap<>();
 
     @Override
