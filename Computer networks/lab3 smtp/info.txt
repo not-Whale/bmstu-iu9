@@ -1,0 +1,3 @@
+login: lab3-rezepin@yandex.ru;
+pass: RXP-2sr-9BF-QK8;
+host: smtp.yandex.ru;
