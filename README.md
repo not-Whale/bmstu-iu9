@@ -1,2 +1,16 @@
-# bmstu-iu9
-Laboratory work and homework at the university 
+# BMSTU-IU9
+<img src="./media/photos/bmstu-logo.png" />
+
+***
+### О чем пойдет речь? 
+Данный репозиторий является хранилищем всех учебных материалов таких как, лабораторные, домашние и практические работы, а также задачи для самостоятельного решения, которые накапливались и накапливаются у меня за время обучения в МГТУ им. Н.Э.Баумана.
+### Содержание
+На данный момент времени мной собраны следующие материалы:
+1. [Алгоритмы и стуктуры данных](./Algorithms\ and\ data\ structures/README.MD) (1 курс 1 семестр)
+2. [Основы информатики](./Informatics\ Basics/README.MD) (1 курс 1 семестр)
+3. [Языки и методы программирования](./Programming\ languages\ and\ methods/README.MD) (1 курс 2 семестр)
+4. [Дискретная математика](./Discrete\ Math/README.MD) (1 курс 2 семестр)
+5. [Компьютерные сети](./Computer\ networks/README.md) (2 курс 3 семестр)
+6. [Алгоритмы копьютерной графики](./Computer\ Graphics\ Algorithms/README.md) (2 курс 4 семестр)
+7. [Базы данных](./Databases/README.md) (3 курс 5 семестр)
+8. [Разработка параллельных и распределенных программ](./Development\ of\ Parallel\ and\ Distributed\ Programs/README.md) (3 курс 5 семестр)
