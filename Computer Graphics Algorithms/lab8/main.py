@@ -394,7 +394,7 @@ class light(object):
         glMaterialfv(GL_FRONT, GL_SPECULAR, (GLfloat * 4)(*self.specular_material))
 
 
-image = pyglet.image.load(os.path.join(os.getcwd(), "pic.bmp"))
+image = pyglet.image.load(os.path.join(os.getcwd(), "./media/pic.bmp"))
 tex = image.get_texture()
 glBindTexture(tex.target, tex.id)
 
@@ -508,10 +508,10 @@ def createShader(strings, _type):
     return shader
 
 
-ff = read_source('./Vertex.vert')
+ff = read_source('./shaders/Vertex.vert')
 vert_shader = createShader(ff, GL_VERTEX_SHADER)
 
-ff = read_source('./PhongLight.frag')
+ff = read_source('./shaders/PhongLight.frag')
 frag_shader = createShader(ff, GL_FRAGMENT_SHADER)
 
 # ff = read_source('./texture.frag')

@@ -384,7 +384,7 @@ class light(object):
         glMaterialfv(GL_FRONT, GL_SPECULAR, (GLfloat * 4)(*self.specular_material))
 
 
-image = pyglet.image.load(os.path.join(os.getcwd(), "pic.bmp"))
+image = pyglet.image.load(os.path.join(os.getcwd(), "./media/pic.bmp"))
 tex = image.get_texture()
 glBindTexture(tex.target, tex.id)
 
